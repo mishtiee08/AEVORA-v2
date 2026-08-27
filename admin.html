@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Dashboard - Aevora</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🏥 Aevora
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="register.html">Register Patient</a>
+            <a href="queue.html">View Queue</a>
+            <a href="admin.html">Doctor Dashboard</a>
+            <a href="patient.html">
+    Patient Records
+</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Doctor Dashboard -->
+
+    <main class="admin-page">
+
+        <div class="admin-heading">
+
+            <p class="small-heading">
+                DOCTOR DASHBOARD
+            </p>
+
+            <h1>
+                Manage Patient Queue
+            </h1>
+
+            <p>
+                Call and manage patients waiting for consultation.
+            </p>
+
+        </div>
+
+
+        <!-- Current Patient -->
+
+        <section class="current-patient-card">
+
+            <div class="current-patient-header">
+
+                <div>
+
+                    <span class="stat-label">
+                        CURRENTLY SERVING
+                    </span>
+
+                    <h2 id="doctorQueueNumber">
+                        A-000
+                    </h2>
+
+                </div>
+
+                <span
+                    id="doctorStatus"
+                    class="status-badge status-waiting"
+                >
+                    No Patient
+                </span>
+
+            </div>
+
+
+            <!-- Patient Information -->
+
+            <div class="doctor-patient-info">
+
+                <div>
+                    <span>Patient Name</span>
+
+                    <strong id="doctorPatientName">
+                        —
+                    </strong>
+                </div>
+
+
+                <div>
+                    <span>Age</span>
+
+                    <strong id="doctorPatientAge">
+                        —
+                    </strong>
+                </div>
+
+
+                <div>
+    <span>Doctor Department</span>
+
+    <select id="doctorDepartment">
+
+        <option value="Cardiology">
+            Cardiology
+        </option>
+
+        <option value="Dermatology">
+            Dermatology
+        </option>
+
+        <option value="Orthopedics">
+            Orthopedics
+        </option>
+
+        <option value="Neurology">
+            Neurology
+        </option>
+
+        <option value="Pediatrics">
+            Pediatrics
+        </option>
+
+        <option value="General Medicine">
+            General Medicine
+        </option>
+
+    </select>
+</div>
+
+                <div>
+                    <span>Priority</span>
+
+                    <strong id="doctorPriority">
+                        —
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="doctor-buttons">
+
+                <button
+                    id="callNextButton"
+                    class="doctor-primary-button"
+                >
+                    📢 Call Next Patient
+                </button>
+
+
+                <button
+                    id="completeButton"
+                    class="doctor-secondary-button"
+                    disabled
+                >
+                    ✓ Complete Patient
+                </button>
+
+            </div>
+
+        </section>
+        <!-- Prescription Section -->
+
+<div
+    id="prescriptionSection"
+    class="prescription-form"
+    style="display: none;"
+>
+
+    <h2>
+        💊 Prescribe Medicines
+    </h2>
+
+    <p>
+        Add medicines prescribed during this consultation.
+    </p>
+
+
+    <!-- Medicine Name -->
+
+    <div class="form-group">
+
+        <label for="medicineName">
+            Medicine Name
+        </label>
+
+        <input
+            type="text"
+            id="medicineName"
+            placeholder="Enter medicine name"
+        >
+
+    </div>
+
+
+    <!-- Dosage -->
+
+    <div class="form-row">
+
+        <div class="form-group">
+
+            <label for="medicineDosage">
+                Dosage
+            </label>
+
+            <input
+                type="text"
+                id="medicineDosage"
+                placeholder="e.g. 1 tablet"
+            >
+
+        </div>
+
+
+        <!-- Frequency -->
+
+        <div class="form-group">
+
+            <label for="medicineFrequency">
+                Frequency
+            </label>
+
+            <select id="medicineFrequency">
+
+                <option value="">
+                    Select frequency
+                </option>
+
+                <option value="Once daily">
+                    Once daily
+                </option>
+
+                <option value="Twice daily">
+                    Twice daily
+                </option>
+
+                <option value="Three times daily">
+                    Three times daily
+                </option>
+
+                <option value="After meals">
+                    After meals
+                </option>
+
+                <option value="Before meals">
+                    Before meals
+                </option>
+
+                <option value="As needed">
+                    As needed
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <button
+    id="addMedicineButton"
+    class="doctor-primary-button"
+>
+    ＋ Add Medicine
+</button>
+
+
+    <!-- Added Medicines -->
+
+    <div
+        id="medicineList"
+        class="medicine-list"
+    ></div>
+
+
+    <!-- Save Prescription -->
+
+    <button
+    id="savePrescriptionButton"
+    class="doctor-secondary-button"
+>
+    ✓ Save Prescription
+</button>
+
+</div>
+
+
+        <!-- Upcoming Patients -->
+
+        <section class="upcoming-section">
+
+            <div class="upcoming-header">
+
+                <h2>
+                    Upcoming Patients
+                </h2>
+
+                <span id="adminWaitingCount">
+                    0 waiting
+                </span>
+
+            </div>
+
+
+            <!-- JavaScript puts patients HERE -->
+
+            <div
+                id="upcomingPatients"
+                class="upcoming-list"
+            >
+
+                <p class="empty-message">
+                    Loading patients...
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 Aevora | Clinic Management System
+        </p>
+
+    </footer>
+
+
+    <!-- Doctor Dashboard JavaScript -->
+
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>

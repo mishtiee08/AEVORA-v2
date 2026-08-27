@@ -1,0 +1,3655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AEVORA | Doctor Portal</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f3f8f7;
+    color: #263b3a;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0b6e69, #07534f);
+    color: white;
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.logo {
+    text-align: center;
+    font-size: 31px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.portal {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 1px;
+    opacity: .7;
+    margin-top: 5px;
+    margin-bottom: 35px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-btn,
+.logout-btn {
+    border: none;
+    background: transparent;
+    color: white;
+    padding: 14px 15px;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.nav-btn:hover,
+.nav-btn.active,
+.logout-btn:hover {
+    background: rgba(255,255,255,.15);
+}
+
+.logout-btn {
+    margin-top: auto;
+}
+
+/* ================= MAIN ================= */
+
+.main {
+    margin-left: 250px;
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    color: #163b3a;
+    font-size: 29px;
+}
+
+.header p {
+    color: #777;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #15958d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* ================= CARDS ================= */
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.05);
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    color: #163b3a;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* ================= BANNER ================= */
+
+.banner {
+    background: linear-gradient(135deg,#0b6e69,#15958d);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.banner h2 {
+    font-size: 22px;
+}
+
+.banner p {
+    margin-top: 8px;
+    opacity: .85;
+}
+
+/* ================= STATS ================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.05);
+}
+
+.stat-label {
+    color: #888;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.stat-number {
+    color: #0b6e69;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+/* ================= SEARCH ================= */
+
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #15958d;
+}
+
+.search-btn {
+    border: none;
+    padding: 13px 20px;
+    border-radius: 9px;
+    background: #0b6e69;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-btn:hover {
+    background: #15958d;
+}
+
+/* ================= TABLE ================= */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 13px;
+    background: #f1f7f6;
+    color: #55706e;
+    text-align: left;
+    font-size: 11px;
+}
+
+td {
+    padding: 14px 13px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.view-btn {
+    border: none;
+    background: #e5f5f3;
+    color: #0b6e69;
+    padding: 8px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.view-btn:hover {
+    background: #ccebe7;
+}
+
+/* ================= PATIENT DETAILS ================= */
+
+.patient-info {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+}
+
+.info-box {
+    background: #f6faf9;
+    padding: 15px;
+    border-radius: 9px;
+}
+
+.info-label {
+    font-size: 10px;
+    color: #888;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #163b3a;
+    font-weight: bold;
+}
+
+/* ================= FORM ================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1/-1;
+}
+
+.form-group label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    background: #fafafa;
+    outline: none;
+    font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #15958d;
+    background: white;
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+/* ================= BUTTONS ================= */
+
+.primary-btn {
+    margin-top: 20px;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(135deg,#0b6e69,#15958d);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.primary-btn:hover {
+    opacity: .9;
+}
+
+.secondary-btn {
+    margin-top: 20px;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 9px;
+    background: #e8f5f3;
+    color: #0b6e69;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.complete-btn {
+    margin-top: 20px;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 9px;
+    background: #16724f;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.complete-btn:hover {
+    background: #125b40;
+}
+
+/* ================= STATUS ================= */
+
+.status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.waiting {
+    background: #fff3d3;
+    color: #926900;
+}
+
+.completed {
+    background: #def5ea;
+    color: #16724f;
+}
+
+.pending {
+    background: #fff3d3;
+    color: #926900;
+}
+
+/* ================= PROFILE ================= */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.profile-item {
+    background: #f7faf9;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.profile-item label {
+    display: block;
+    color: #888;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.profile-item input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* ================= RECORD ================= */
+
+.record-card {
+    background: #f7faf9;
+    border-left: 4px solid #15958d;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.record-title {
+    font-weight: bold;
+    color: #0b6e69;
+    margin-bottom: 8px;
+}
+
+.record-row {
+    margin: 6px 0;
+    font-size: 13px;
+}
+
+/* ================= MESSAGE ================= */
+
+.message {
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* ================= EMPTY ================= */
+
+.empty {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px) {
+    .stats {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:850px) {
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 18px;
+    }
+
+    .stats,
+    .patient-info,
+    .profile-grid,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">AEVORA</div>
+
+    <div class="portal">
+        DOCTOR PORTAL
+    </div>
+
+    <div class="nav">
+
+        <button class="nav-btn active"
+                id="dashboardNav"
+                onclick="showSection('dashboard')">
+            🏠 &nbsp; Dashboard
+        </button>
+
+        <button class="nav-btn"
+                id="patientsNav"
+                onclick="showSection('patients')">
+            👥 &nbsp; My Patients
+        </button>
+
+        <button class="nav-btn"
+                id="recordsNav"
+                onclick="showSection('records')">
+            📋 &nbsp; Patient Records
+        </button>
+
+        <button class="nav-btn"
+                id="prescriptionNav"
+                onclick="showSection('prescription')">
+            💊 &nbsp; Prescription
+        </button>
+
+        <button class="nav-btn"
+                id="nurseNav"
+                onclick="showSection('nurse')">
+            👩‍⚕️ &nbsp; Nurse Tasks
+        </button>
+
+        <button class="nav-btn"
+                id="profileNav"
+                onclick="showSection('profile')">
+            👤 &nbsp; My Profile
+        </button>
+
+    </div>
+
+    <button class="logout-btn"
+            onclick="logout()">
+        🚪 &nbsp; Logout
+    </button>
+
+</aside>
+
+
+<main class="main">
+
+<!-- ================= HEADER ================= -->
+
+<div class="header">
+
+    <div>
+        <h1 id="welcomeTitle">
+            Doctor Dashboard
+        </h1>
+
+        <p>
+            Manage your department patients and clinical records.
+        </p>
+    </div>
+
+    <div class="avatar" id="avatar">
+        D
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section id="dashboardSection">
+
+    <div class="banner">
+
+        <h2>
+            Welcome,
+            <span id="doctorNameBanner">
+                Doctor
+            </span>
+            👨‍⚕️
+        </h2>
+
+        <p>
+            Department:
+            <strong id="departmentBanner">
+                Loading...
+            </strong>
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="stat-label">
+                MY PATIENTS
+            </div>
+
+            <div class="stat-number"
+                 id="totalPatients">
+                0
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-label">
+                WAITING
+            </div>
+
+            <div class="stat-number"
+                 id="waitingPatients">
+                0
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-label">
+                COMPLETED
+            </div>
+
+            <div class="stat-number"
+                 id="completedPatients">
+                0
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-label">
+                NURSE TASKS
+            </div>
+
+            <div class="stat-number"
+                 id="nurseTaskCount">
+                0
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Quick Patient Search
+        </h2>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="dashboardSearch"
+                placeholder="Search by AEVORA Patient ID">
+
+            <button class="search-btn"
+                    onclick="searchPatient()">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PATIENTS
+===================================================== -->
+
+<section id="patientsSection"
+         style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            My Department Patients
+        </h2>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="patientSearch"
+                placeholder="Search by AEVORA ID or patient name"
+                oninput="renderPatients()">
+
+        </div>
+
+        <br>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>AEVORA ID</th>
+                        <th>Token</th>
+                        <th>Patient</th>
+                        <th>Age</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="patientTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PATIENT DETAILS
+===================================================== -->
+
+<section id="patientDetailsSection"
+         style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            Patient Details
+        </h2>
+
+        <div class="patient-info">
+
+            <div class="info-box">
+                <div class="info-label">
+                    AEVORA PATIENT ID
+                </div>
+
+                <div class="info-value"
+                     id="detailId">
+                </div>
+            </div>
+
+
+            <div class="info-box">
+                <div class="info-label">
+                    PATIENT NAME
+                </div>
+
+                <div class="info-value"
+                     id="detailName">
+                </div>
+            </div>
+
+
+            <div class="info-box">
+                <div class="info-label">
+                    AGE
+                </div>
+
+                <div class="info-value"
+                     id="detailAge">
+                </div>
+            </div>
+
+
+            <div class="info-box">
+                <div class="info-label">
+                    GENDER
+                </div>
+
+                <div class="info-value"
+                     id="detailGender">
+                </div>
+            </div>
+
+
+            <div class="info-box">
+                <div class="info-label">
+                    PHONE
+                </div>
+
+                <div class="info-value"
+                     id="detailPhone">
+                </div>
+            </div>
+
+
+            <div class="info-box">
+                <div class="info-label">
+                    DEPARTMENT
+                </div>
+
+                <div class="info-value"
+                     id="detailDepartment">
+                </div>
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    CURRENT STATUS
+                </div>
+
+                <div class="info-value"
+                     id="detailStatus">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="info-box">
+
+            <div class="info-label">
+                SYMPTOMS / REASON FOR VISIT
+            </div>
+
+            <div class="info-value"
+                 id="detailSymptoms">
+            </div>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="openPrescriptionForSelected()">
+            💊 Write Prescription
+        </button>
+
+
+        <button class="secondary-btn"
+                onclick="openNurseTaskForSelected()">
+            👩‍⚕️ Assign Nurse Task
+        </button>
+
+
+        <button class="complete-btn"
+                id="completeTreatmentBtn"
+                onclick="completeTreatment()">
+            ✅ Mark Treatment Completed
+        </button>
+
+
+        <button class="secondary-btn"
+                onclick="showSection('patients')">
+            ← Back to Patients
+        </button>
+
+    </div>
+
+
+    <!-- VISIT HISTORY -->
+
+    <div class="card">
+
+        <h2>
+            Patient Visit History
+        </h2>
+
+        <div id="patientHistoryList">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PATIENT RECORDS
+===================================================== -->
+
+<section id="recordsSection"
+         style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            Patient Records
+        </h2>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="recordSearch"
+                placeholder="Search AEVORA ID or patient name"
+                oninput="renderRecords()">
+
+        </div>
+
+        <br>
+
+        <div id="recordsList"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PRESCRIPTION
+===================================================== -->
+
+<section id="prescriptionSection"
+         style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            Write Prescription
+        </h2>
+
+        <div class="form-grid">
+
+
+            <div class="form-group">
+
+                <label>
+                    AEVORA Patient ID *
+                </label>
+
+                <input
+                    type="text"
+                    id="prescriptionPatientId"
+                    placeholder="Example: AEV-123456">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Patient Name
+                </label>
+
+                <input
+                    type="text"
+                    id="prescriptionPatientName"
+                    readonly>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Medicine Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="medicineName"
+                    placeholder="Enter medicine">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Dose *
+                </label>
+
+                <input
+                    type="text"
+                    id="medicineDose"
+                    placeholder="Example: 500 mg">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Amount / Quantity *
+                </label>
+
+                <input
+                    type="text"
+                    id="medicineAmount"
+                    placeholder="Example: 10 tablets">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Frequency
+                </label>
+
+                <select id="medicineFrequency">
+
+                    <option value="">
+                        Select frequency
+                    </option>
+
+                    <option>
+                        Once daily
+                    </option>
+
+                    <option>
+                        Twice daily
+                    </option>
+
+                    <option>
+                        Three times daily
+                    </option>
+
+                    <option>
+                        Every 6 hours
+                    </option>
+
+                    <option>
+                        As needed
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Instructions
+                </label>
+
+                <textarea
+                    id="medicineInstructions"
+                    placeholder="Enter instructions">
+                </textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Next Visit
+                </label>
+
+                <input
+                    type="date"
+                    id="nextVisit">
+
+            </div>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="savePrescription()">
+
+            💾 Save Prescription
+
+        </button>
+
+
+        <div class="message"
+             id="prescriptionMessage">
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Saved Prescriptions
+        </h2>
+
+        <div id="prescriptionList"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     NURSE TASKS
+===================================================== -->
+
+<section id="nurseSection"
+         style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            Assign Task to Nurse
+        </h2>
+
+        <div class="form-grid">
+
+
+            <div class="form-group">
+
+                <label>
+                    AEVORA Patient ID *
+                </label>
+
+                <input
+                    type="text"
+                    id="taskPatientId"
+                    placeholder="Enter patient ID">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Task Type *
+                </label>
+
+                <select id="taskType">
+
+                    <option value="">
+                        Select task
+                    </option>
+
+                    <option>
+                        Emergency Alert
+                    </option>
+
+                    <option>
+                        Vaccination
+                    </option>
+
+                    <option>
+                        Follow-up
+                    </option>
+
+                    <option>
+                        Vital Signs
+                    </option>
+
+                    <option>
+                        Medication
+                    </option>
+
+                    <option>
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Task Instructions *
+                </label>
+
+                <textarea
+                    id="taskInstructions"
+                    placeholder="Describe what the nurse needs to do">
+                </textarea>
+
+            </div>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="assignNurseTask()">
+
+            👩‍⚕️ Assign Task
+
+        </button>
+
+
+        <div class="message"
+             id="taskMessage">
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Assigned Nurse Tasks
+        </h2>
+
+        <div id="nurseTaskList"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROFILE
+===================================================== -->
+
+<section id="profileSection"
+         style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            My Profile
+        </h2>
+
+        <div class="profile-grid">
+
+
+            <div class="profile-item">
+
+                <label>
+                    DOCTOR NAME
+                </label>
+
+                <input
+                    type="text"
+                    id="doctorProfileName"
+                    placeholder="Enter doctor name">
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    USERNAME
+                </label>
+
+                <input
+                    type="text"
+                    id="doctorUsername"
+                    readonly>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    DEPARTMENT
+                </label>
+
+                <input
+                    type="text"
+                    id="doctorProfileDepartment"
+                    readonly>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    ROLE
+                </label>
+
+                <input
+                    type="text"
+                    value="Doctor"
+                    readonly>
+
+            </div>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="saveDoctorProfile()">
+
+            💾 Save Profile
+
+        </button>
+
+
+        <div class="message"
+             id="profileMessage">
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   SESSION
+===================================================== */
+
+let currentDoctor = null;
+let selectedPatient = null;
+
+
+/* =====================================================
+   DOCTOR SESSION
+===================================================== */
+
+function getDoctorSession() {
+
+    const session =
+        localStorage.getItem("doctorSession");
+
+    if (session) {
+
+        try {
+
+            const doctor = JSON.parse(session);
+
+            if (doctor && doctor.username) {
+                return doctor;
+            }
+
+        } catch(error) {
+            console.log("Invalid doctor session.");
+        }
+    }
+
+
+    const currentUser =
+        localStorage.getItem("currentUser");
+
+    if (currentUser) {
+
+        try {
+
+            const user =
+                JSON.parse(currentUser);
+
+            if (
+                user &&
+                String(user.role).toLowerCase() === "doctor"
+            ) {
+
+                return {
+                    username: user.username,
+                    name:
+                        user.name ||
+                        user.doctorName ||
+                        user.username,
+                    department:
+                        user.department ||
+                        user.doctorDepartment
+                };
+
+            }
+
+        } catch(error) {}
+
+    }
+
+    return null;
+}
+
+
+/* =====================================================
+   PATIENT STORAGE
+===================================================== */
+
+function getPatients() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem("patients")
+            );
+
+        return Array.isArray(data)
+            ? data
+            : [];
+
+    } catch(error) {
+
+        return [];
+
+    }
+}
+
+
+function savePatients(patients) {
+
+    localStorage.setItem(
+        "patients",
+        JSON.stringify(patients)
+    );
+}
+
+
+/* =====================================================
+   PRESCRIPTIONS
+===================================================== */
+
+function getPrescriptions() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem("prescriptions")
+            );
+
+        return Array.isArray(data)
+            ? data
+            : [];
+
+    } catch(error) {
+
+        return [];
+
+    }
+}
+
+
+/* =====================================================
+   NURSE TASKS
+===================================================== */
+
+function getNurseTasks() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem("nurseTasks")
+            );
+
+        return Array.isArray(data)
+            ? data
+            : [];
+
+    } catch(error) {
+
+        return [];
+
+    }
+}
+
+
+/* =====================================================
+   PATIENT ID
+===================================================== */
+
+function generatePatientId(patient) {
+
+    return "AEV-" +
+        String(
+            patient.id || Date.now()
+        ).slice(-6);
+
+}
+
+
+/* =====================================================
+   GET PATIENT ID
+===================================================== */
+
+function getPatientId(patient) {
+
+    return (
+        patient.patientId ||
+        patient.aevoraId ||
+        generatePatientId(patient)
+    );
+
+}
+
+
+/* =====================================================
+   DEPARTMENT PATIENTS
+===================================================== */
+
+function getMyDepartmentPatients() {
+
+    const patients =
+        getPatients();
+
+    if (!currentDoctor) {
+        return [];
+    }
+
+    const department =
+        String(
+            currentDoctor.department || ""
+        ).trim().toLowerCase();
+
+
+    return patients.filter(function(patient) {
+
+        return String(
+            patient.department || ""
+        ).trim().toLowerCase()
+        === department;
+
+    });
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showSection(section) {
+
+    const sections = [
+        "dashboard",
+        "patients",
+        "records",
+        "prescription",
+        "nurse",
+        "profile"
+    ];
+
+
+    sections.forEach(function(item) {
+
+        const element =
+            document.getElementById(
+                item + "Section"
+            );
+
+        if (element) {
+
+            element.style.display =
+                item === section
+                    ? "block"
+                    : "none";
+
+        }
+
+    });
+
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    const nav =
+        document.getElementById(
+            section + "Nav"
+        );
+
+    if (nav) {
+        nav.classList.add("active");
+    }
+
+
+    if (section === "dashboard") {
+        updateDashboard();
+    }
+
+    if (section === "patients") {
+        renderPatients();
+    }
+
+    if (section === "records") {
+        renderRecords();
+    }
+
+    if (section === "prescription") {
+        renderPrescriptions();
+    }
+
+    if (section === "nurse") {
+        renderNurseTasks();
+    }
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function updateDashboard() {
+
+    const patients =
+        getMyDepartmentPatients();
+
+
+    document.getElementById(
+        "totalPatients"
+    ).textContent =
+        patients.length;
+
+
+    const waiting =
+        patients.filter(function(patient) {
+
+            return String(
+                patient.status || "Waiting"
+            ).toLowerCase()
+            === "waiting";
+
+        }).length;
+
+
+    document.getElementById(
+        "waitingPatients"
+    ).textContent =
+        waiting;
+
+
+    const completed =
+        patients.filter(function(patient) {
+
+            return String(
+                patient.status || ""
+            ).toLowerCase()
+            === "completed";
+
+        }).length;
+
+
+    document.getElementById(
+        "completedPatients"
+    ).textContent =
+        completed;
+
+
+    const tasks =
+        getNurseTasks().filter(function(task) {
+
+            return (
+                task.doctorUsername ===
+                currentDoctor.username
+                &&
+                task.status !== "Completed"
+            );
+
+        });
+
+
+    document.getElementById(
+        "nurseTaskCount"
+    ).textContent =
+        tasks.length;
+
+}
+
+
+/* =====================================================
+   RENDER PATIENTS
+===================================================== */
+
+function renderPatients() {
+
+    const table =
+        document.getElementById(
+            "patientTable"
+        );
+
+
+    const search =
+        (
+            document.getElementById(
+                "patientSearch"
+            ).value || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    let patients =
+        getMyDepartmentPatients();
+
+
+    if (search) {
+
+        patients =
+            patients.filter(function(patient) {
+
+                return (
+
+                    getPatientId(patient)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(
+                        patient.name || ""
+                    )
+                    .toLowerCase()
+                    .includes(search)
+
+                );
+
+            });
+
+    }
+
+
+    table.innerHTML = "";
+
+
+    if (patients.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7">
+
+                    <div class="empty">
+                        🏥<br><br>
+                        No patients found in your department.
+                    </div>
+
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    patients.forEach(function(patient) {
+
+        const patientId =
+            getPatientId(patient);
+
+
+        const status =
+            patient.status || "Waiting";
+
+
+        const statusClass =
+            String(status).toLowerCase()
+            === "completed"
+                ? "completed"
+                : "waiting";
+
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>
+                    <strong>
+                        ${escapeHTML(patientId)}
+                    </strong>
+                </td>
+
+                <td>
+                    #${escapeHTML(
+                        String(
+                            patient.token ||
+                            patient.queueNumber ||
+                            "-"
+                        )
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        patient.name || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        String(
+                            patient.age || "-"
+                        )
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        patient.department || "-"
+                    )}
+                </td>
+
+                <td>
+
+                    <span class="status ${statusClass}">
+                        ${escapeHTML(status)}
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="view-btn"
+                        onclick="viewPatient('${String(patient.id)}')">
+
+                        View
+
+                    </button>
+
+                </td>
+
+            </tr>
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   VIEW PATIENT
+===================================================== */
+
+function viewPatient(id) {
+
+    const patient =
+        getPatients().find(function(item) {
+
+            return String(item.id)
+                === String(id);
+
+        });
+
+
+    if (!patient) {
+
+        alert("Patient not found.");
+
+        return;
+
+    }
+
+
+    if (
+        String(patient.department || "")
+            .trim()
+            .toLowerCase()
+        !==
+        String(currentDoctor.department || "")
+            .trim()
+            .toLowerCase()
+    ) {
+
+        alert(
+            "This patient does not belong to your department."
+        );
+
+        return;
+
+    }
+
+
+    selectedPatient =
+        patient;
+
+
+    document.getElementById(
+        "detailId"
+    ).textContent =
+        getPatientId(patient);
+
+
+    document.getElementById(
+        "detailName"
+    ).textContent =
+        patient.name || "-";
+
+
+    document.getElementById(
+        "detailAge"
+    ).textContent =
+        patient.age || "-";
+
+
+    document.getElementById(
+        "detailGender"
+    ).textContent =
+        patient.gender || "-";
+
+
+    document.getElementById(
+        "detailPhone"
+    ).textContent =
+        patient.phone || "-";
+
+
+    document.getElementById(
+        "detailDepartment"
+    ).textContent =
+        patient.department || "-";
+
+
+    document.getElementById(
+        "detailStatus"
+    ).textContent =
+        patient.status || "Waiting";
+
+
+    document.getElementById(
+        "detailSymptoms"
+    ).textContent =
+        patient.symptoms ||
+        patient.reason ||
+        "General consultation";
+
+
+    const completeButton =
+        document.getElementById(
+            "completeTreatmentBtn"
+        );
+
+
+    if (
+        String(patient.status || "")
+            .toLowerCase()
+        === "completed"
+    ) {
+
+        completeButton.disabled = true;
+
+        completeButton.textContent =
+            "✅ Treatment Completed";
+
+        completeButton.style.opacity =
+            "0.6";
+
+    } else {
+
+        completeButton.disabled = false;
+
+        completeButton.textContent =
+            "✅ Mark Treatment Completed";
+
+        completeButton.style.opacity =
+            "1";
+
+    }
+
+
+    renderPatientHistory(patient);
+
+
+    document.getElementById(
+        "patientsSection"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "recordsSection"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "patientDetailsSection"
+    ).style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   SEARCH PATIENT
+===================================================== */
+
+function searchPatient() {
+
+    const id =
+        document.getElementById(
+            "dashboardSearch"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+    if (!id) {
+
+        alert(
+            "Please enter an AEVORA Patient ID."
+        );
+
+        return;
+
+    }
+
+
+    const patient =
+        getPatients().find(function(item) {
+
+            return getPatientId(item)
+                .toLowerCase()
+                === id;
+
+        });
+
+
+    if (!patient) {
+
+        alert("Patient not found.");
+
+        return;
+
+    }
+
+
+    if (
+        String(patient.department || "")
+            .toLowerCase()
+        !==
+        String(currentDoctor.department || "")
+            .toLowerCase()
+    ) {
+
+        alert(
+            "This patient belongs to another department."
+        );
+
+        return;
+
+    }
+
+
+    viewPatient(patient.id);
+
+}
+
+
+/* =====================================================
+   PATIENT RECORDS
+===================================================== */
+
+function renderRecords() {
+
+    const container =
+        document.getElementById(
+            "recordsList"
+        );
+
+
+    const search =
+        (
+            document.getElementById(
+                "recordSearch"
+            ).value || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    let patients =
+        getMyDepartmentPatients();
+
+
+    if (search) {
+
+        patients =
+            patients.filter(function(patient) {
+
+                return (
+
+                    getPatientId(patient)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(patient.name || "")
+                        .toLowerCase()
+                        .includes(search)
+
+                );
+
+            });
+
+    }
+
+
+    if (patients.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                📋<br><br>
+                No patient records found.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        patients.map(function(patient) {
+
+            const history =
+                Array.isArray(patient.visitHistory)
+                    ? patient.visitHistory
+                    : [];
+
+
+            return `
+
+                <div class="record-card">
+
+                    <div class="record-title">
+
+                        ${escapeHTML(
+                            patient.name || "Patient"
+                        )}
+
+                    </div>
+
+                    <div class="record-row">
+
+                        <strong>AEVORA ID:</strong>
+                        ${escapeHTML(
+                            getPatientId(patient)
+                        )}
+
+                    </div>
+
+                    <div class="record-row">
+
+                        <strong>Age:</strong>
+                        ${escapeHTML(
+                            String(patient.age || "-")
+                        )}
+
+                    </div>
+
+                    <div class="record-row">
+
+                        <strong>Department:</strong>
+                        ${escapeHTML(
+                            patient.department || "-"
+                        )}
+
+                    </div>
+
+                    <div class="record-row">
+
+                        <strong>Status:</strong>
+                        ${escapeHTML(
+                            patient.status || "Waiting"
+                        )}
+
+                    </div>
+
+                    <div class="record-row">
+
+                        <strong>Total Visits:</strong>
+                        ${history.length}
+
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        onclick="viewPatient('${String(patient.id)}')">
+
+                        Open Full Record
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =====================================================
+   VISIT HISTORY
+===================================================== */
+
+function renderPatientHistory(patient) {
+
+    const container =
+        document.getElementById(
+            "patientHistoryList"
+        );
+
+
+    const history =
+        Array.isArray(patient.visitHistory)
+            ? patient.visitHistory
+            : [];
+
+
+    if (history.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                No previous visit records.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        history
+        .slice()
+        .reverse()
+        .map(function(visit) {
+
+            return `
+
+                <div class="record-card">
+
+                    <div class="record-title">
+
+                        Visit —
+                        ${escapeHTML(
+                            formatDate(visit.date)
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Doctor:</strong>
+                        ${escapeHTML(
+                            visit.doctorName || "-"
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Department:</strong>
+                        ${escapeHTML(
+                            visit.department || "-"
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Symptoms:</strong>
+                        ${escapeHTML(
+                            visit.symptoms || "-"
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Status:</strong>
+                        ${escapeHTML(
+                            visit.status || "-"
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Prescription:</strong>
+                        ${escapeHTML(
+                            visit.prescriptionSummary ||
+                            "No prescription recorded"
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Next Visit:</strong>
+                        ${escapeHTML(
+                            visit.nextVisit ||
+                            "Not assigned"
+                        )}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =====================================================
+   OPEN PRESCRIPTION
+===================================================== */
+
+function openPrescriptionForSelected() {
+
+    if (!selectedPatient) {
+
+        alert(
+            "Please select a patient first."
+        );
+
+        return;
+
+    }
+
+
+    const patientId =
+        getPatientId(selectedPatient);
+
+
+    document.getElementById(
+        "prescriptionPatientId"
+    ).value =
+        patientId;
+
+
+    document.getElementById(
+        "prescriptionPatientName"
+    ).value =
+        selectedPatient.name || "";
+
+
+    showSection("prescription");
+
+}
+
+
+/* =====================================================
+   PRESCRIPTION PATIENT CHANGE
+===================================================== */
+
+document.getElementById(
+    "prescriptionPatientId"
+).addEventListener(
+    "change",
+    function() {
+
+        const enteredId =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        const patient =
+            getMyDepartmentPatients()
+            .find(function(item) {
+
+                return getPatientId(item)
+                    .toLowerCase()
+                    === enteredId;
+
+            });
+
+
+        if (!patient) {
+
+            document.getElementById(
+                "prescriptionPatientName"
+            ).value = "";
+
+            selectedPatient = null;
+
+            return;
+
+        }
+
+
+        selectedPatient =
+            patient;
+
+
+        document.getElementById(
+            "prescriptionPatientName"
+        ).value =
+            patient.name || "";
+
+    }
+);
+
+
+/* =====================================================
+   SAVE PRESCRIPTION
+===================================================== */
+
+function savePrescription() {
+
+    const patientId =
+        document.getElementById(
+            "prescriptionPatientId"
+        ).value
+        .trim();
+
+
+    const medicine =
+        document.getElementById(
+            "medicineName"
+        ).value
+        .trim();
+
+
+    const dose =
+        document.getElementById(
+            "medicineDose"
+        ).value
+        .trim();
+
+
+    const amount =
+        document.getElementById(
+            "medicineAmount"
+        ).value
+        .trim();
+
+
+    const frequency =
+        document.getElementById(
+            "medicineFrequency"
+        ).value;
+
+
+    const instructions =
+        document.getElementById(
+            "medicineInstructions"
+        ).value
+        .trim();
+
+
+    const nextVisit =
+        document.getElementById(
+            "nextVisit"
+        ).value;
+
+
+    const patient =
+        getMyDepartmentPatients()
+        .find(function(item) {
+
+            return getPatientId(item)
+                .toLowerCase()
+                === patientId.toLowerCase();
+
+        });
+
+
+    if (!patient) {
+
+        showMessage(
+            "prescriptionMessage",
+            "Patient not found in your department.",
+            "red"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !patientId ||
+        !medicine ||
+        !dose ||
+        !amount
+    ) {
+
+        showMessage(
+            "prescriptionMessage",
+            "Please fill in all required prescription fields.",
+            "red"
+        );
+
+        return;
+
+    }
+
+
+    const prescriptions =
+        getPrescriptions();
+
+
+    const prescription = {
+
+        id: Date.now(),
+
+        patientId:
+            patientId,
+
+        patientName:
+            patient.name || "",
+
+        doctorUsername:
+            currentDoctor.username,
+
+        doctorName:
+            currentDoctor.name,
+
+        department:
+            currentDoctor.department,
+
+        medicine:
+            medicine,
+
+        dose:
+            dose,
+
+        amount:
+            amount,
+
+        frequency:
+            frequency,
+
+        instructions:
+            instructions,
+
+        nextVisit:
+            nextVisit,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    prescriptions.push(
+        prescription
+    );
+
+
+    localStorage.setItem(
+        "prescriptions",
+        JSON.stringify(prescriptions)
+    );
+
+
+    /* Save latest prescription to patient */
+
+    const patients =
+        getPatients();
+
+
+    const index =
+        patients.findIndex(function(item) {
+
+            return String(item.id)
+                === String(patient.id);
+
+        });
+
+
+    if (index !== -1) {
+
+        patients[index].latestPrescription =
+            prescription;
+
+        patients[index].nextVisit =
+            nextVisit;
+
+        savePatients(patients);
+
+        selectedPatient =
+            patients[index];
+
+    }
+
+
+    showMessage(
+        "prescriptionMessage",
+        "Prescription saved successfully.",
+        "#15958d"
+    );
+
+
+    document.getElementById(
+        "medicineName"
+    ).value = "";
+
+
+    document.getElementById(
+        "medicineDose"
+    ).value = "";
+
+
+    document.getElementById(
+        "medicineAmount"
+    ).value = "";
+
+
+    document.getElementById(
+        "medicineFrequency"
+    ).value = "";
+
+
+    document.getElementById(
+        "medicineInstructions"
+    ).value = "";
+
+
+    document.getElementById(
+        "nextVisit"
+    ).value = "";
+
+
+    renderPrescriptions();
+
+}
+
+
+/* =====================================================
+   RENDER PRESCRIPTIONS
+===================================================== */
+
+function renderPrescriptions() {
+
+    const container =
+        document.getElementById(
+            "prescriptionList"
+        );
+
+
+    const prescriptions =
+        getPrescriptions()
+        .filter(function(item) {
+
+            return item.doctorUsername
+                === currentDoctor.username;
+
+        });
+
+
+    if (prescriptions.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                No prescriptions written yet.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        prescriptions
+        .slice()
+        .reverse()
+        .map(function(item) {
+
+            return `
+
+                <div class="record-card">
+
+                    <div class="record-title">
+
+                        ${escapeHTML(
+                            item.patientName
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>AEVORA ID:</strong>
+                        ${escapeHTML(
+                            item.patientId
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        💊 <strong>
+                        ${escapeHTML(
+                            item.medicine
+                        )}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Dose:</strong>
+                        ${escapeHTML(
+                            item.dose
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Quantity:</strong>
+                        ${escapeHTML(
+                            item.amount
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Frequency:</strong>
+                        ${escapeHTML(
+                            item.frequency ||
+                            "Not specified"
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Instructions:</strong>
+                        ${escapeHTML(
+                            item.instructions ||
+                            "None"
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Next Visit:</strong>
+                        ${escapeHTML(
+                            item.nextVisit ||
+                            "Not assigned"
+                        )}
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =====================================================
+   OPEN NURSE TASK FOR SELECTED PATIENT
+===================================================== */
+
+function openNurseTaskForSelected() {
+
+    if (!selectedPatient) {
+
+        alert(
+            "Please select a patient first."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "taskPatientId"
+    ).value =
+        getPatientId(selectedPatient);
+
+
+    showSection("nurse");
+
+}
+
+
+/* =====================================================
+   ASSIGN NURSE TASK
+===================================================== */
+
+function assignNurseTask() {
+
+    const patientId =
+        document.getElementById(
+            "taskPatientId"
+        ).value
+        .trim();
+
+
+    const taskType =
+        document.getElementById(
+            "taskType"
+        ).value;
+
+
+    const instructions =
+        document.getElementById(
+            "taskInstructions"
+        ).value
+        .trim();
+
+
+    if (
+        !patientId ||
+        !taskType ||
+        !instructions
+    ) {
+
+        showMessage(
+            "taskMessage",
+            "Please fill in all task fields.",
+            "red"
+        );
+
+        return;
+
+    }
+
+
+    const patient =
+        getMyDepartmentPatients()
+        .find(function(item) {
+
+            return getPatientId(item)
+                .toLowerCase()
+                === patientId.toLowerCase();
+
+        });
+
+
+    if (!patient) {
+
+        showMessage(
+            "taskMessage",
+            "Patient not found in your department.",
+            "red"
+        );
+
+        return;
+
+    }
+
+
+    const tasks =
+        getNurseTasks();
+
+
+    tasks.push({
+
+        id:
+            Date.now(),
+
+        patientId:
+            patientId,
+
+        patientName:
+            patient.name,
+
+        department:
+            patient.department,
+
+        doctorUsername:
+            currentDoctor.username,
+
+        doctorName:
+            currentDoctor.name,
+
+        taskType:
+            taskType,
+
+        instructions:
+            instructions,
+
+        status:
+            "Pending",
+
+        createdAt:
+            new Date().toISOString()
+
+    });
+
+
+    localStorage.setItem(
+        "nurseTasks",
+        JSON.stringify(tasks)
+    );
+
+
+    showMessage(
+        "taskMessage",
+        "Task successfully assigned to nurse.",
+        "#15958d"
+    );
+
+
+    document.getElementById(
+        "taskPatientId"
+    ).value = "";
+
+
+    document.getElementById(
+        "taskType"
+    ).value = "";
+
+
+    document.getElementById(
+        "taskInstructions"
+    ).value = "";
+
+
+    renderNurseTasks();
+
+    updateDashboard();
+
+}
+
+
+/* =====================================================
+   RENDER NURSE TASKS
+===================================================== */
+
+function renderNurseTasks() {
+
+    const container =
+        document.getElementById(
+            "nurseTaskList"
+        );
+
+
+    const tasks =
+        getNurseTasks()
+        .filter(function(task) {
+
+            return task.doctorUsername
+                === currentDoctor.username;
+
+        });
+
+
+    if (tasks.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                No nurse tasks assigned.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        tasks
+        .slice()
+        .reverse()
+        .map(function(task) {
+
+            const completed =
+                task.status === "Completed";
+
+
+            return `
+
+                <div class="record-card">
+
+                    <div class="record-title">
+
+                        ${escapeHTML(
+                            task.taskType
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Patient:</strong>
+                        ${escapeHTML(
+                            task.patientName
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>AEVORA ID:</strong>
+                        ${escapeHTML(
+                            task.patientId
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Department:</strong>
+                        ${escapeHTML(
+                            task.department
+                        )}
+
+                    </div>
+
+
+                    <div class="record-row">
+
+                        <strong>Instructions:</strong>
+                        ${escapeHTML(
+                            task.instructions
+                        )}
+
+                    </div>
+
+
+                    <br>
+
+
+                    <span class="status ${
+                        completed
+                            ? "completed"
+                            : "pending"
+                    }">
+
+                        ${escapeHTML(
+                            task.status
+                        )}
+
+                    </span>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =====================================================
+   MARK TREATMENT COMPLETED
+===================================================== */
+
+function completeTreatment() {
+
+    if (!selectedPatient) {
+
+        alert(
+            "Please select a patient first."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        String(selectedPatient.status || "")
+            .toLowerCase()
+        === "completed"
+    ) {
+
+        alert(
+            "This treatment is already marked as completed."
+        );
+
+        return;
+
+    }
+
+
+    const prescriptions =
+        getPrescriptions();
+
+
+    const patientPrescriptions =
+        prescriptions.filter(function(item) {
+
+            return (
+                item.patientId
+                    .toLowerCase()
+                ===
+                getPatientId(selectedPatient)
+                    .toLowerCase()
+            )
+            &&
+            item.doctorUsername
+                === currentDoctor.username;
+
+        });
+
+
+    let prescriptionSummary =
+        "No prescription recorded";
+
+
+    if (patientPrescriptions.length > 0) {
+
+        const latest =
+            patientPrescriptions[
+                patientPrescriptions.length - 1
+            ];
+
+
+        prescriptionSummary =
+            latest.medicine +
+            " — " +
+            latest.dose +
+            " — " +
+            latest.amount;
+
+    }
+
+
+    const patients =
+        getPatients();
+
+
+    const index =
+        patients.findIndex(function(item) {
+
+            return String(item.id)
+                === String(selectedPatient.id);
+
+        });
+
+
+    if (index === -1) {
+
+        alert("Patient record could not be found.");
+
+        return;
+
+    }
+
+
+    const completedDate =
+        new Date().toISOString();
+
+
+    /* Update patient status */
+
+    patients[index].status =
+        "Completed";
+
+
+    patients[index].completedAt =
+        completedDate;
+
+
+    patients[index].completedBy =
+        currentDoctor.name;
+
+
+    patients[index].completedByUsername =
+        currentDoctor.username;
+
+
+    /* Create visit record */
+
+    if (
+        !Array.isArray(
+            patients[index].visitHistory
+        )
+    ) {
+
+        patients[index].visitHistory = [];
+
+    }
+
+
+    patients[index].visitHistory.push({
+
+        date:
+            completedDate,
+
+        doctorName:
+            currentDoctor.name,
+
+        doctorUsername:
+            currentDoctor.username,
+
+        department:
+            currentDoctor.department,
+
+        symptoms:
+            patients[index].symptoms ||
+            patients[index].reason ||
+            "General consultation",
+
+        status:
+            "Completed",
+
+        prescriptionSummary:
+            prescriptionSummary,
+
+        nextVisit:
+            patients[index].nextVisit ||
+            (
+                patientPrescriptions.length
+                    ? patientPrescriptions[
+                        patientPrescriptions.length - 1
+                    ].nextVisit
+                    : ""
+            )
+
+    });
+
+
+    savePatients(patients);
+
+
+    selectedPatient =
+        patients[index];
+
+
+    document.getElementById(
+        "detailStatus"
+    ).textContent =
+        "Completed";
+
+
+    const button =
+        document.getElementById(
+            "completeTreatmentBtn"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "✅ Treatment Completed";
+
+    button.style.opacity =
+        "0.6";
+
+
+    renderPatientHistory(
+        selectedPatient
+    );
+
+
+    updateDashboard();
+
+    renderPatients();
+
+    renderRecords();
+
+
+    alert(
+        "Treatment completed successfully. Patient visit has been saved to the record."
+    );
+
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function loadProfile() {
+
+    document.getElementById(
+        "doctorProfileName"
+    ).value =
+        currentDoctor.name || "";
+
+
+    document.getElementById(
+        "doctorUsername"
+    ).value =
+        currentDoctor.username || "";
+
+
+    document.getElementById(
+        "doctorProfileDepartment"
+    ).value =
+        currentDoctor.department || "";
+
+
+    document.getElementById(
+        "doctorNameBanner"
+    ).textContent =
+        currentDoctor.name || "Doctor";
+
+
+    document.getElementById(
+        "departmentBanner"
+    ).textContent =
+        currentDoctor.department || "Not Assigned";
+
+
+    document.getElementById(
+        "avatar"
+    ).textContent =
+        (
+            currentDoctor.name ||
+            "D"
+        )
+        .charAt(0)
+        .toUpperCase();
+
+}
+
+
+/* =====================================================
+   SAVE DOCTOR PROFILE
+===================================================== */
+
+function saveDoctorProfile() {
+
+    const newName =
+        document.getElementById(
+            "doctorProfileName"
+        ).value
+        .trim();
+
+
+    if (!newName) {
+
+        showMessage(
+            "profileMessage",
+            "Doctor name cannot be empty.",
+            "red"
+        );
+
+        return;
+
+    }
+
+
+    currentDoctor.name =
+        newName;
+
+
+    localStorage.setItem(
+        "doctorSession",
+        JSON.stringify(currentDoctor)
+    );
+
+
+    const currentUser =
+        localStorage.getItem(
+            "currentUser"
+        );
+
+
+    if (currentUser) {
+
+        try {
+
+            const user =
+                JSON.parse(currentUser);
+
+
+            user.name =
+                newName;
+
+
+            user.doctorName =
+                newName;
+
+
+            localStorage.setItem(
+                "currentUser",
+                JSON.stringify(user)
+            );
+
+        } catch(error) {}
+
+    }
+
+
+    loadProfile();
+
+
+    showMessage(
+        "profileMessage",
+        "Doctor profile updated successfully.",
+        "#15958d"
+    );
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    elementId,
+    text,
+    color
+) {
+
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+
+    element.textContent =
+        text;
+
+
+    element.style.color =
+        color;
+
+
+    setTimeout(function() {
+
+        element.textContent = "";
+
+    }, 3000);
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement("div");
+
+
+    div.textContent =
+        value == null
+            ? ""
+            : String(value);
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function formatDate(date) {
+
+    if (!date) {
+        return "-";
+    }
+
+
+    const d =
+        new Date(date);
+
+
+    if (isNaN(d.getTime())) {
+        return String(date);
+    }
+
+
+    return d.toLocaleString();
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    localStorage.removeItem(
+        "doctorSession"
+    );
+
+    localStorage.removeItem(
+        "currentUser"
+    );
+
+    localStorage.removeItem(
+        "loggedInUser"
+    );
+
+    localStorage.removeItem(
+        "role"
+    );
+
+    localStorage.removeItem(
+        "userRole"
+    );
+
+    localStorage.removeItem(
+        "doctorDepartment"
+    );
+
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+function initializeDoctor() {
+
+    currentDoctor =
+        getDoctorSession();
+
+
+    if (!currentDoctor) {
+
+        alert(
+            "Doctor session not found. Please login again."
+        );
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    if (!currentDoctor.department) {
+
+        alert(
+            "Doctor department is missing. Please login again."
+        );
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    loadProfile();
+
+    updateDashboard();
+
+    renderPatients();
+
+    renderRecords();
+
+    renderPrescriptions();
+
+    renderNurseTasks();
+
+}
+
+
+/* =====================================================
+   AUTO REFRESH
+===================================================== */
+
+setInterval(function() {
+
+    if (!currentDoctor) {
+        return;
+    }
+
+
+    updateDashboard();
+
+
+    const patientsSection =
+        document.getElementById(
+            "patientsSection"
+        );
+
+
+    if (
+        patientsSection &&
+        patientsSection.style.display !== "none"
+    ) {
+
+        renderPatients();
+
+    }
+
+
+    const recordsSection =
+        document.getElementById(
+            "recordsSection"
+        );
+
+
+    if (
+        recordsSection &&
+        recordsSection.style.display !== "none"
+    ) {
+
+        renderRecords();
+
+    }
+
+
+    const nurseSection =
+        document.getElementById(
+            "nurseSection"
+        );
+
+
+    if (
+        nurseSection &&
+        nurseSection.style.display !== "none"
+    ) {
+
+        renderNurseTasks();
+
+    }
+
+}, 3000);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+initializeDoctor();
+
+</script>
+
+</body>
+</html>

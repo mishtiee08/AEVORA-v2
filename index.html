@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AEVORA | Smart Clinic Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4faf9;
+            color: #173b3a;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 82px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: #0b6e69;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #405554;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #0b6e69;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: calc(100vh - 82px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px 8%;
+            gap: 60px;
+        }
+
+        .hero-content {
+            max-width: 620px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #dff4f1;
+            color: #0b6e69;
+            padding: 9px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            line-height: 1.08;
+            color: #173b3a;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: #0b8b83;
+        }
+
+        .hero p {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #6a7d7b;
+            margin-bottom: 32px;
+        }
+
+        /* BUTTONS */
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+
+        .staff-btn {
+            background: linear-gradient(135deg, #0b6e69, #15958d);
+            color: white;
+            box-shadow: 0 8px 20px rgba(11,110,105,0.20);
+        }
+
+        .staff-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .emergency-btn {
+            background: white;
+            color: #c0392b;
+            border: 1px solid #f0cccc;
+        }
+
+        .emergency-btn:hover {
+            background: #fff5f5;
+        }
+
+        /* HERO CARD */
+
+        .hero-card {
+            width: 390px;
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 18px 45px rgba(20,80,75,0.10);
+        }
+
+        .hospital-icon {
+            width: 75px;
+            height: 75px;
+            border-radius: 20px;
+            background: #e2f5f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 38px;
+            margin-bottom: 25px;
+        }
+
+        .hero-card h2 {
+            color: #173b3a;
+            margin-bottom: 10px;
+        }
+
+        .hero-card p {
+            font-size: 13px;
+            color: #758785;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 0;
+            border-top: 1px solid #edf2f1;
+            font-size: 13px;
+            color: #526563;
+        }
+
+        .feature-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: #e7f6f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #91a09f;
+            font-size: 11px;
+        }
+
+        @media(max-width: 850px) {
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 50px 25px;
+            }
+
+            .buttons {
+                justify-content: center;
+            }
+
+            .hero-card {
+                width: 100%;
+                max-width: 390px;
+            }
+
+            .hero h1 {
+                font-size: 43px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            AEVORA
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+
+            <a href="login.html">
+                Staff Login
+            </a>
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="tag">
+                SMART CLINIC MANAGEMENT SYSTEM
+            </div>
+
+            <h1>
+                Smarter care.<br>
+                <span>Better healthcare.</span>
+            </h1>
+
+            <p>
+                AEVORA brings patient registration, department
+                management, queues, prescriptions and emergency
+                care into one simple clinic management system.
+            </p>
+
+            <div class="buttons">
+
+                <!-- THIS GOES TO LOGIN.HTML -->
+
+                <a
+                    href="login.html"
+                    class="btn staff-btn">
+
+                    👩‍⚕️ Staff Login
+
+                </a>
+
+
+                <!-- EMERGENCY -->
+
+                <a
+                    href="receptionist.html"
+                    class="btn emergency-btn">
+
+                    🚨 Emergency Patient
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT CARD -->
+
+        <div class="hero-card">
+
+            <div class="hospital-icon">
+                🏥
+            </div>
+
+            <h2>
+                AEVORA
+            </h2>
+
+            <p>
+                One connected system for every step of
+                the patient journey.
+            </p>
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    👨‍⚕️
+                </div>
+
+                Doctor Management
+
+            </div>
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    👥
+                </div>
+
+                Patient Queues
+
+            </div>
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📋
+                </div>
+
+                Digital Patient Records
+
+            </div>
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🚨
+                </div>
+
+                Emergency Registration
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        © 2026 AEVORA · Smart Clinic Management System
+    </footer>
+
+</body>
+</html>

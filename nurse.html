@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AEVORA | Nurse Portal</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f3f8f7;
+    color: #263b3a;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0b6e69, #07534f);
+    color: white;
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.logo {
+    text-align: center;
+    font-size: 31px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.portal {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 1px;
+    opacity: .7;
+    margin-top: 5px;
+    margin-bottom: 35px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-btn,
+.logout-btn {
+    border: none;
+    background: transparent;
+    color: white;
+    padding: 14px 15px;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.nav-btn:hover,
+.nav-btn.active,
+.logout-btn:hover {
+    background: rgba(255,255,255,.15);
+}
+
+.logout-btn {
+    margin-top: auto;
+}
+
+/* MAIN */
+.main {
+    margin-left: 250px;
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    color: #163b3a;
+    font-size: 29px;
+}
+
+.header p {
+    color: #777;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #15958d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* CARDS */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.05);
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    color: #163b3a;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* BANNER */
+.banner {
+    background: linear-gradient(135deg,#0b6e69,#15958d);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.banner h2 {
+    font-size: 22px;
+}
+
+.banner p {
+    margin-top: 8px;
+    opacity: .85;
+}
+
+/* STATS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.05);
+}
+
+.stat-label {
+    color: #888;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.stat-number {
+    color: #0b6e69;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+/* SEARCH */
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #15958d;
+}
+
+.search-btn {
+    border: none;
+    padding: 13px 20px;
+    border-radius: 9px;
+    background: #0b6e69;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-btn:hover {
+    background: #15958d;
+}
+
+/* TABLE */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 13px;
+    background: #f1f7f6;
+    color: #55706e;
+    text-align: left;
+    font-size: 11px;
+}
+
+td {
+    padding: 14px 13px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.view-btn {
+    border: none;
+    background: #e5f5f3;
+    color: #0b6e69;
+    padding: 8px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.view-btn:hover {
+    background: #ccebe7;
+}
+
+/* STATUS */
+.status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.pending {
+    background: #fff3d3;
+    color: #926900;
+}
+
+.completed {
+    background: #def5ea;
+    color: #16724f;
+}
+
+.waiting {
+    background: #fff3d3;
+    color: #926900;
+}
+
+/* PATIENT INFO */
+.patient-info {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+}
+
+.info-box {
+    background: #f6faf9;
+    padding: 15px;
+    border-radius: 9px;
+}
+
+.info-label {
+    font-size: 10px;
+    color: #888;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #163b3a;
+    font-weight: bold;
+}
+
+/* TASK CARD */
+.task-card {
+    background: #f6faf9;
+    border-left: 4px solid #15958d;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+}
+
+.task-card h3 {
+    color: #163b3a;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.task-card p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* BUTTONS */
+.primary-btn {
+    margin-top: 20px;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(135deg,#0b6e69,#15958d);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.secondary-btn {
+    margin-top: 20px;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 9px;
+    background: #e8f5f3;
+    color: #0b6e69;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.complete-btn {
+    margin-top: 12px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #15958d;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.complete-btn:hover {
+    background: #0b6e69;
+}
+
+/* PROFILE */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.profile-item {
+    background: #f7faf9;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.profile-item label {
+    display: block;
+    color: #888;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.profile-item input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* EMPTY */
+.empty {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
+/* MESSAGE */
+.message {
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* RESPONSIVE */
+@media(max-width:850px) {
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 18px;
+    }
+
+    .stats,
+    .patient-info,
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">AEVORA</div>
+
+    <div class="portal">
+        NURSE PORTAL
+    </div>
+
+    <div class="nav">
+
+        <button class="nav-btn active"
+                id="dashboardNav"
+                onclick="showSection('dashboard')">
+            🏠 &nbsp; Dashboard
+        </button>
+
+        <button class="nav-btn"
+                id="queueNav"
+                onclick="showSection('queue')">
+            📋 &nbsp; Patient Queue
+        </button>
+
+        <button class="nav-btn"
+                id="tasksNav"
+                onclick="showSection('tasks')">
+            👩‍⚕️ &nbsp; Nurse Tasks
+        </button>
+
+        <button class="nav-btn"
+                id="recordsNav"
+                onclick="showSection('records')">
+            📁 &nbsp; Patient Records
+        </button>
+
+        <button class="nav-btn"
+                id="profileNav"
+                onclick="showSection('profile')">
+            👤 &nbsp; My Profile
+        </button>
+
+    </div>
+
+    <button class="logout-btn" onclick="logout()">
+        🚪 &nbsp; Logout
+    </button>
+
+</aside>
+
+
+<main class="main">
+
+<!-- HEADER -->
+<div class="header">
+
+    <div>
+        <h1>Nurse Dashboard</h1>
+
+        <p>
+            Monitor patients and manage assigned nursing tasks.
+        </p>
+    </div>
+
+    <div class="avatar" id="avatar">
+        N
+    </div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+<section id="dashboardSection">
+
+    <div class="banner">
+
+        <h2>
+            Welcome,
+            <span id="nurseNameBanner">Nurse</span>
+            👩‍⚕️
+        </h2>
+
+        <p>
+            Assigned Department:
+            <strong id="departmentBanner">
+                Loading...
+            </strong>
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="stat-label">
+                PATIENTS IN QUEUE
+            </div>
+
+            <div class="stat-number" id="queueCount">
+                0
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-label">
+                PENDING TASKS
+            </div>
+
+            <div class="stat-number" id="pendingTaskCount">
+                0
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-label">
+                COMPLETED TASKS
+            </div>
+
+            <div class="stat-number" id="completedTaskCount">
+                0
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Search Patient
+        </h2>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="dashboardSearch"
+                placeholder="Search by AEVORA Patient ID">
+
+            <button class="search-btn"
+                    onclick="searchPatient()">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- QUEUE -->
+<section id="queueSection" style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            Department Patient Queue
+        </h2>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="queueSearch"
+                placeholder="Search patient..."
+                oninput="renderQueue()">
+
+        </div>
+
+        <br>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>AEVORA ID</th>
+                        <th>Token</th>
+                        <th>Patient</th>
+                        <th>Age</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="queueTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- NURSE TASKS -->
+<section id="tasksSection" style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            Tasks Assigned by Doctors
+        </h2>
+
+        <div id="taskList"></div>
+
+    </div>
+
+</section>
+
+
+<!-- PATIENT RECORDS -->
+<section id="recordsSection" style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            Patient Records
+        </h2>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="recordSearch"
+                placeholder="Search AEVORA ID or patient name"
+                oninput="renderRecords()">
+
+        </div>
+
+        <br>
+
+        <div id="recordList"></div>
+
+    </div>
+
+</section>
+
+
+<!-- PATIENT DETAILS -->
+<section id="patientDetailsSection" style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            Patient Information
+        </h2>
+
+        <div class="patient-info">
+
+            <div class="info-box">
+                <div class="info-label">
+                    AEVORA PATIENT ID
+                </div>
+
+                <div class="info-value" id="detailId"></div>
+            </div>
+
+
+            <div class="info-box">
+                <div class="info-label">
+                    PATIENT NAME
+                </div>
+
+                <div class="info-value" id="detailName"></div>
+            </div>
+
+
+            <div class="info-box">
+                <div class="info-label">
+                    AGE
+                </div>
+
+                <div class="info-value" id="detailAge"></div>
+            </div>
+
+
+            <div class="info-box">
+                <div class="info-label">
+                    GENDER
+                </div>
+
+                <div class="info-value" id="detailGender"></div>
+            </div>
+
+
+            <div class="info-box">
+                <div class="info-label">
+                    PHONE
+                </div>
+
+                <div class="info-value" id="detailPhone"></div>
+            </div>
+
+
+            <div class="info-box">
+                <div class="info-label">
+                    DEPARTMENT
+                </div>
+
+                <div class="info-value" id="detailDepartment"></div>
+            </div>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="info-box">
+
+            <div class="info-label">
+                SYMPTOMS / REASON FOR VISIT
+            </div>
+
+            <div class="info-value" id="detailSymptoms"></div>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="info-box">
+
+            <div class="info-label">
+                DOCTOR
+            </div>
+
+            <div class="info-value" id="detailDoctor">
+                -
+            </div>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="info-box">
+
+            <div class="info-label">
+                PRESCRIPTION
+            </div>
+
+            <div id="detailPrescription">
+                No prescription available.
+            </div>
+
+        </div>
+
+
+        <button class="secondary-btn"
+                onclick="showSection('queue')">
+            ← Back
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profileSection" style="display:none;">
+
+    <div class="card">
+
+        <h2>
+            My Profile
+        </h2>
+
+        <div class="profile-grid">
+
+            <div class="profile-item">
+
+                <label>
+                    NURSE NAME
+                </label>
+
+                <input
+                    type="text"
+                    id="nurseProfileName"
+                    placeholder="Enter nurse name">
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    USERNAME
+                </label>
+
+                <input
+                    type="text"
+                    id="nurseUsername"
+                    readonly>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    DEPARTMENT
+                </label>
+
+                <input
+                    type="text"
+                    id="nurseDepartment"
+                    readonly>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    ROLE
+                </label>
+
+                <input
+                    type="text"
+                    value="Nurse"
+                    readonly>
+
+            </div>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="saveProfile()">
+            💾 Save Profile
+        </button>
+
+        <div class="message" id="profileMessage"></div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   NURSE SESSION
+===================================================== */
+
+let currentNurse = null;
+
+
+/* =====================================================
+   GET NURSE SESSION
+   Supports multiple existing login formats
+===================================================== */
+
+function getNurseSession() {
+
+    /* 1. Existing nurseSession */
+    const nurseSession = localStorage.getItem("nurseSession");
+
+    if (nurseSession) {
+
+        try {
+
+            const nurse = JSON.parse(nurseSession);
+
+            if (nurse && (nurse.username || nurse.name)) {
+
+                return {
+                    username: nurse.username || "",
+                    name: nurse.name || nurse.nurseName || nurse.username || "Nurse",
+                    department:
+                        nurse.department ||
+                        nurse.nurseDepartment ||
+                        localStorage.getItem("nurseDepartment") ||
+                        ""
+                };
+
+            }
+
+        } catch (error) {
+            console.log("Invalid nurseSession.");
+        }
+    }
+
+
+    /* 2. Existing currentUser */
+    const currentUser = localStorage.getItem("currentUser");
+
+    if (currentUser) {
+
+        try {
+
+            const user = JSON.parse(currentUser);
+
+            if (
+                user &&
+                (
+                    String(user.role || "").toLowerCase() === "nurse" ||
+                    user.nurseDepartment ||
+                    user.department
+                )
+            ) {
+
+                return {
+                    username: user.username || user.email || "",
+                    name:
+                        user.name ||
+                        user.nurseName ||
+                        user.username ||
+                        "Nurse",
+
+                    department:
+                        user.department ||
+                        user.nurseDepartment ||
+                        localStorage.getItem("nurseDepartment") ||
+                        ""
+                };
+
+            }
+
+        } catch (error) {
+            console.log("Invalid currentUser.");
+        }
+    }
+
+
+    /* 3. Existing loggedInUser */
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (loggedInUser) {
+
+        try {
+
+            const user = JSON.parse(loggedInUser);
+
+            if (user) {
+
+                return {
+                    username: user.username || user.email || "",
+                    name:
+                        user.name ||
+                        user.nurseName ||
+                        user.username ||
+                        "Nurse",
+
+                    department:
+                        user.department ||
+                        user.nurseDepartment ||
+                        localStorage.getItem("nurseDepartment") ||
+                        ""
+                };
+
+            }
+
+        } catch (error) {
+            console.log("Invalid loggedInUser.");
+        }
+    }
+
+
+    /* 4. Separate department storage */
+    const department = localStorage.getItem("nurseDepartment");
+
+    if (department) {
+
+        return {
+            username: localStorage.getItem("username") || "",
+            name: localStorage.getItem("nurseName") || "Nurse",
+            department: department
+        };
+
+    }
+
+
+    return null;
+}
+
+
+/* =====================================================
+   PATIENT STORAGE
+===================================================== */
+
+function getPatients() {
+
+    try {
+
+        const data = JSON.parse(
+            localStorage.getItem("patients") || "[]"
+        );
+
+        return Array.isArray(data) ? data : [];
+
+    } catch (error) {
+
+        return [];
+    }
+}
+
+
+/* =====================================================
+   PRESCRIPTIONS
+===================================================== */
+
+function getPrescriptions() {
+
+    try {
+
+        const data = JSON.parse(
+            localStorage.getItem("prescriptions") || "[]"
+        );
+
+        return Array.isArray(data) ? data : [];
+
+    } catch (error) {
+
+        return [];
+    }
+}
+
+
+/* =====================================================
+   NURSE TASKS
+===================================================== */
+
+function getTasks() {
+
+    try {
+
+        const data = JSON.parse(
+            localStorage.getItem("nurseTasks") || "[]"
+        );
+
+        return Array.isArray(data) ? data : [];
+
+    } catch (error) {
+
+        return [];
+    }
+}
+
+
+/* =====================================================
+   PATIENT ID
+===================================================== */
+
+function getPatientId(patient) {
+
+    return (
+        patient.patientId ||
+        patient.aevoraId ||
+        patient.aevoraID ||
+        "AEV-" + String(patient.id || Date.now()).slice(-6)
+    );
+}
+
+
+/* =====================================================
+   NORMALIZE DEPARTMENT
+===================================================== */
+
+function normalizeDepartment(value) {
+
+    return String(value || "")
+        .trim()
+        .toLowerCase();
+}
+
+
+/* =====================================================
+   DEPARTMENT PATIENTS
+===================================================== */
+
+function getDepartmentPatients() {
+
+    const patients = getPatients();
+
+    if (!currentNurse) {
+        return [];
+    }
+
+    const nurseDepartment =
+        normalizeDepartment(currentNurse.department);
+
+    /*
+       If no department is available, don't destroy
+       the session. Show all patients rather than
+       throwing "department missing".
+    */
+
+    if (!nurseDepartment) {
+        return patients;
+    }
+
+    return patients.filter(function(patient) {
+
+        return normalizeDepartment(patient.department) ===
+               nurseDepartment;
+
+    });
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showSection(section) {
+
+    const sections = [
+        "dashboard",
+        "queue",
+        "tasks",
+        "records",
+        "profile"
+    ];
+
+
+    sections.forEach(function(item) {
+
+        const element =
+            document.getElementById(item + "Section");
+
+        if (element) {
+
+            element.style.display =
+                item === section ? "block" : "none";
+
+        }
+
+    });
+
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    const nav =
+        document.getElementById(section + "Nav");
+
+    if (nav) {
+        nav.classList.add("active");
+    }
+
+
+    /* Hide patient details */
+    document.getElementById(
+        "patientDetailsSection"
+    ).style.display = "none";
+
+
+    if (section === "dashboard") {
+        updateDashboard();
+    }
+
+    if (section === "queue") {
+        renderQueue();
+    }
+
+    if (section === "tasks") {
+        renderTasks();
+    }
+
+    if (section === "records") {
+        renderRecords();
+    }
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function updateDashboard() {
+
+    const patients = getDepartmentPatients();
+
+
+    const waiting = patients.filter(function(patient) {
+
+        const status =
+            String(patient.status || "Waiting")
+            .toLowerCase();
+
+        return status !== "completed";
+
+    });
+
+
+    document.getElementById("queueCount").textContent =
+        waiting.length;
+
+
+    const department =
+        normalizeDepartment(currentNurse.department);
+
+
+    const tasks = getTasks();
+
+
+    const departmentTasks = tasks.filter(function(task) {
+
+        if (!department) {
+            return true;
+        }
+
+        return normalizeDepartment(task.department) === department;
+
+    });
+
+
+    const pending =
+        departmentTasks.filter(function(task) {
+
+            return String(task.status || "Pending")
+                .toLowerCase() !== "completed";
+
+        });
+
+
+    const completed =
+        departmentTasks.filter(function(task) {
+
+            return String(task.status || "")
+                .toLowerCase() === "completed";
+
+        });
+
+
+    document.getElementById("pendingTaskCount").textContent =
+        pending.length;
+
+
+    document.getElementById("completedTaskCount").textContent =
+        completed.length;
+}
+
+
+/* =====================================================
+   RENDER QUEUE
+===================================================== */
+
+function renderQueue() {
+
+    const table =
+        document.getElementById("queueTable");
+
+    if (!table) return;
+
+
+    const search =
+        (
+            document.getElementById("queueSearch").value || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    let patients = getDepartmentPatients();
+
+
+    patients = patients.filter(function(patient) {
+
+        return String(patient.status || "Waiting")
+            .toLowerCase() !== "completed";
+
+    });
+
+
+    if (search) {
+
+        patients = patients.filter(function(patient) {
+
+            return (
+
+                getPatientId(patient)
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                String(patient.name || "")
+                    .toLowerCase()
+                    .includes(search)
+
+            );
+
+        });
+
+    }
+
+
+    table.innerHTML = "";
+
+
+    if (patients.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    <div class="empty">
+                        🏥<br><br>
+                        No patients currently waiting.
+                    </div>
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    patients.forEach(function(patient) {
+
+        const status =
+            patient.status || "Waiting";
+
+
+        table.innerHTML += `
+            <tr>
+
+                <td>
+                    <strong>
+                        ${escapeHTML(getPatientId(patient))}
+                    </strong>
+                </td>
+
+                <td>
+                    #${escapeHTML(
+                        String(
+                            patient.token ||
+                            patient.queueNumber ||
+                            "-"
+                        )
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHTML(patient.name || "-")}
+                </td>
+
+                <td>
+                    ${escapeHTML(String(patient.age || "-"))}
+                </td>
+
+                <td>
+                    ${escapeHTML(patient.department || "-")}
+                </td>
+
+                <td>
+                    <span class="status waiting">
+                        ${escapeHTML(status)}
+                    </span>
+                </td>
+
+                <td>
+                    <button
+                        class="view-btn"
+                        onclick="viewPatient('${escapeJS(String(patient.id))}')">
+                        View
+                    </button>
+                </td>
+
+            </tr>
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   VIEW PATIENT
+===================================================== */
+
+function viewPatient(id) {
+
+    const patient =
+        getPatients().find(function(item) {
+
+            return String(item.id) === String(id);
+
+        });
+
+
+    if (!patient) {
+
+        alert("Patient not found.");
+        return;
+
+    }
+
+
+    /*
+       Department security check.
+       If nurse has a department, only that department
+       can be opened.
+    */
+
+    const nurseDepartment =
+        normalizeDepartment(currentNurse.department);
+
+    const patientDepartment =
+        normalizeDepartment(patient.department);
+
+
+    if (
+        nurseDepartment &&
+        patientDepartment &&
+        nurseDepartment !== patientDepartment
+    ) {
+
+        alert(
+            "This patient does not belong to your department."
+        );
+
+        return;
+    }
+
+
+    const patientId =
+        getPatientId(patient);
+
+
+    document.getElementById("detailId").textContent =
+        patientId;
+
+    document.getElementById("detailName").textContent =
+        patient.name || "-";
+
+    document.getElementById("detailAge").textContent =
+        patient.age || "-";
+
+    document.getElementById("detailGender").textContent =
+        patient.gender || "-";
+
+    document.getElementById("detailPhone").textContent =
+        patient.phone || "-";
+
+    document.getElementById("detailDepartment").textContent =
+        patient.department || "-";
+
+    document.getElementById("detailSymptoms").textContent =
+        patient.symptoms || "General consultation";
+
+
+    /* Find prescription */
+    const prescriptions =
+        getPrescriptions().filter(function(item) {
+
+            const prescriptionPatientId =
+                String(
+                    item.patientId ||
+                    item.aevoraId ||
+                    ""
+                ).toLowerCase();
+
+            return prescriptionPatientId ===
+                   String(patientId).toLowerCase();
+
+        });
+
+
+    if (prescriptions.length > 0) {
+
+        const latest =
+            prescriptions[prescriptions.length - 1];
+
+
+        document.getElementById("detailDoctor").textContent =
+            latest.doctorName ||
+            latest.doctorUsername ||
+            latest.doctor ||
+            "-";
+
+
+        document.getElementById("detailPrescription").innerHTML = `
+
+            <strong>
+                ${escapeHTML(latest.medicine || "-")}
+            </strong>
+
+            <br><br>
+
+            Dose:
+            ${escapeHTML(latest.dose || "-")}
+
+            <br>
+
+            Quantity:
+            ${escapeHTML(latest.amount || "-")}
+
+            <br>
+
+            Frequency:
+            ${escapeHTML(latest.frequency || "-")}
+
+            <br>
+
+            Instructions:
+            ${escapeHTML(latest.instructions || "None")}
+
+            <br>
+
+            Next Visit:
+            ${escapeHTML(latest.nextVisit || "Not assigned")}
+
+        `;
+
+    } else {
+
+        document.getElementById("detailDoctor").textContent =
+            patient.doctorName ||
+            patient.doctor ||
+            "-";
+
+        document.getElementById("detailPrescription").textContent =
+            "No prescription available.";
+
+    }
+
+
+    /* Hide everything */
+    document.getElementById("dashboardSection").style.display =
+        "none";
+
+    document.getElementById("queueSection").style.display =
+        "none";
+
+    document.getElementById("tasksSection").style.display =
+        "none";
+
+    document.getElementById("recordsSection").style.display =
+        "none";
+
+    document.getElementById("profileSection").style.display =
+        "none";
+
+
+    document.querySelectorAll(".nav-btn")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    document.getElementById("patientDetailsSection")
+        .style.display = "block";
+}
+
+
+/* =====================================================
+   SEARCH PATIENT
+===================================================== */
+
+function searchPatient() {
+
+    const value =
+        document.getElementById("dashboardSearch")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    if (!value) {
+
+        alert("Please enter an AEVORA Patient ID.");
+        return;
+
+    }
+
+
+    const patient =
+        getDepartmentPatients().find(function(item) {
+
+            return getPatientId(item)
+                .toLowerCase() === value;
+
+        });
+
+
+    if (!patient) {
+
+        alert(
+            "Patient not found in your department."
+        );
+
+        return;
+    }
+
+
+    viewPatient(patient.id);
+}
+
+
+/* =====================================================
+   RENDER TASKS
+===================================================== */
+
+function renderTasks() {
+
+    const container =
+        document.getElementById("taskList");
+
+    if (!container) return;
+
+
+    const department =
+        normalizeDepartment(currentNurse.department);
+
+
+    const tasks =
+        getTasks().filter(function(task) {
+
+            if (!department) {
+                return true;
+            }
+
+            return normalizeDepartment(task.department) ===
+                   department;
+
+        });
+
+
+    container.innerHTML = "";
+
+
+    if (tasks.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                👩‍⚕️<br><br>
+                No tasks have been assigned to you.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    tasks
+        .slice()
+        .reverse()
+        .forEach(function(task) {
+
+            const completed =
+                String(task.status || "")
+                .toLowerCase() === "completed";
+
+
+            /*
+               If the task has no ID, create one.
+            */
+
+            if (task.id === undefined || task.id === null) {
+
+                task.id =
+                    Date.now() +
+                    Math.floor(Math.random() * 1000);
+
+            }
+
+
+            container.innerHTML += `
+
+                <div class="task-card">
+
+                    <h3>
+                        ${escapeHTML(
+                            task.taskType ||
+                            task.title ||
+                            "Nursing Task"
+                        )}
+                    </h3>
+
+                    <p>
+
+                        <strong>
+                            Patient:
+                        </strong>
+
+                        ${escapeHTML(
+                            task.patientName || "-"
+                        )}
+
+                        <br>
+
+                        <strong>
+                            AEVORA ID:
+                        </strong>
+
+                        ${escapeHTML(
+                            task.patientId || "-"
+                        )}
+
+                        <br>
+
+                        <strong>
+                            Department:
+                        </strong>
+
+                        ${escapeHTML(
+                            task.department || "-"
+                        )}
+
+                        <br><br>
+
+                        <strong>
+                            Instructions:
+                        </strong>
+
+                        <br>
+
+                        ${escapeHTML(
+                            task.instructions || "-"
+                        )}
+
+                    </p>
+
+                    <br>
+
+                    <span class="status ${
+                        completed
+                            ? "completed"
+                            : "pending"
+                    }">
+
+                        ${
+                            completed
+                                ? "Completed"
+                                : "Pending"
+                        }
+
+                    </span>
+
+
+                    ${
+                        completed
+
+                        ? `
+
+                            <br><br>
+
+                            <span style="
+                                color:#16724f;
+                                font-size:12px;
+                                font-weight:bold;
+                            ">
+                                ✓ Task completed
+                            </span>
+
+                        `
+
+                        : `
+
+                            <br>
+
+                            <button
+                                class="complete-btn"
+                                onclick="completeTask('${escapeJS(String(task.id))}')">
+
+                                ✓ Mark as Completed
+
+                            </button>
+
+                        `
+                    }
+
+                </div>
+
+            `;
+
+        });
+
+
+    /*
+       Save generated IDs if necessary.
+    */
+
+    localStorage.setItem(
+        "nurseTasks",
+        JSON.stringify(tasks.length ? getTasks() : [])
+    );
+}
+
+
+/* =====================================================
+   COMPLETE TASK
+===================================================== */
+
+function completeTask(taskId) {
+
+    const tasks =
+        getTasks();
+
+
+    const task =
+        tasks.find(function(item) {
+
+            return String(item.id) ===
+                   String(taskId);
+
+        });
+
+
+    if (!task) {
+
+        alert("Task not found.");
+        return;
+
+    }
+
+
+    const nurseDepartment =
+        normalizeDepartment(
+            currentNurse.department
+        );
+
+
+    const taskDepartment =
+        normalizeDepartment(
+            task.department
+        );
+
+
+    if (
+        nurseDepartment &&
+        taskDepartment &&
+        nurseDepartment !== taskDepartment
+    ) {
+
+        alert(
+            "You cannot modify a task from another department."
+        );
+
+        return;
+    }
+
+
+    task.status = "Completed";
+
+    task.completedAt =
+        new Date().toISOString();
+
+    task.completedBy =
+        currentNurse.username ||
+        currentNurse.name ||
+        "Nurse";
+
+
+    localStorage.setItem(
+        "nurseTasks",
+        JSON.stringify(tasks)
+    );
+
+
+    renderTasks();
+
+    updateDashboard();
+
+}
+
+
+/* =====================================================
+   PATIENT RECORDS
+===================================================== */
+
+function renderRecords() {
+
+    const container =
+        document.getElementById("recordList");
+
+    if (!container) return;
+
+
+    const search =
+        (
+            document.getElementById("recordSearch").value ||
+            ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    let patients =
+        getDepartmentPatients();
+
+
+    if (search) {
+
+        patients =
+            patients.filter(function(patient) {
+
+                return (
+
+                    getPatientId(patient)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(patient.name || "")
+                        .toLowerCase()
+                        .includes(search)
+
+                );
+
+            });
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (patients.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                📁<br><br>
+                No patient records found.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    patients.forEach(function(patient) {
+
+        const patientId =
+            getPatientId(patient);
+
+
+        const prescriptions =
+            getPrescriptions().filter(function(item) {
+
+                return String(
+                    item.patientId ||
+                    item.aevoraId ||
+                    ""
+                ).toLowerCase() ===
+                patientId.toLowerCase();
+
+            });
+
+
+        const latestPrescription =
+            prescriptions.length > 0
+                ? prescriptions[prescriptions.length - 1]
+                : null;
+
+
+        container.innerHTML += `
+
+            <div class="task-card">
+
+                <h3>
+                    ${escapeHTML(
+                        patient.name || "-"
+                    )}
+                </h3>
+
+
+                <p>
+
+                    <strong>
+                        AEVORA ID:
+                    </strong>
+
+                    ${escapeHTML(patientId)}
+
+                    <br>
+
+                    <strong>
+                        Age:
+                    </strong>
+
+                    ${escapeHTML(
+                        String(patient.age || "-")
+                    )}
+
+                    <br>
+
+                    <strong>
+                        Gender:
+                    </strong>
+
+                    ${escapeHTML(
+                        patient.gender || "-"
+                    )}
+
+                    <br>
+
+                    <strong>
+                        Phone:
+                    </strong>
+
+                    ${escapeHTML(
+                        patient.phone || "-"
+                    )}
+
+                    <br>
+
+                    <strong>
+                        Department:
+                    </strong>
+
+                    ${escapeHTML(
+                        patient.department || "-"
+                    )}
+
+                    <br>
+
+                    <strong>
+                        Symptoms:
+                    </strong>
+
+                    ${escapeHTML(
+                        patient.symptoms ||
+                        "General consultation"
+                    )}
+
+                    <br>
+
+                    <strong>
+                        Status:
+                    </strong>
+
+                    ${escapeHTML(
+                        patient.status ||
+                        "Waiting"
+                    )}
+
+                </p>
+
+
+                ${
+                    latestPrescription
+
+                    ? `
+
+                        <br>
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+                                LATEST PRESCRIPTION
+                            </div>
+
+                            <div class="info-value">
+
+                                💊
+                                ${escapeHTML(
+                                    latestPrescription.medicine || "-"
+                                )}
+
+                            </div>
+
+                            <br>
+
+                            <p>
+
+                                <strong>
+                                    Dose:
+                                </strong>
+
+                                ${escapeHTML(
+                                    latestPrescription.dose || "-"
+                                )}
+
+                                <br>
+
+                                <strong>
+                                    Quantity:
+                                </strong>
+
+                                ${escapeHTML(
+                                    latestPrescription.amount || "-"
+                                )}
+
+                                <br>
+
+                                <strong>
+                                    Frequency:
+                                </strong>
+
+                                ${escapeHTML(
+                                    latestPrescription.frequency || "-"
+                                )}
+
+                                <br>
+
+                                <strong>
+                                    Instructions:
+                                </strong>
+
+                                ${escapeHTML(
+                                    latestPrescription.instructions ||
+                                    "None"
+                                )}
+
+                                <br>
+
+                                <strong>
+                                    Next Visit:
+                                </strong>
+
+                                ${escapeHTML(
+                                    latestPrescription.nextVisit ||
+                                    "Not assigned"
+                                )}
+
+                            </p>
+
+                        </div>
+
+                    `
+
+                    : `
+
+                        <br>
+
+                        <p>
+                            <strong>
+                                Prescription:
+                            </strong>
+
+                            No prescription recorded.
+                        </p>
+
+                    `
+                }
+
+
+                <button
+                    class="view-btn"
+                    style="margin-top:15px;"
+                    onclick="viewPatient('${escapeJS(String(patient.id))}')">
+
+                    View Full Record
+
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function loadProfile() {
+
+    document.getElementById(
+        "nurseProfileName"
+    ).value =
+        currentNurse.name || "";
+
+
+    document.getElementById(
+        "nurseUsername"
+    ).value =
+        currentNurse.username || "";
+
+
+    document.getElementById(
+        "nurseDepartment"
+    ).value =
+        currentNurse.department || "Not Assigned";
+
+
+    document.getElementById(
+        "nurseNameBanner"
+    ).textContent =
+        currentNurse.name || "Nurse";
+
+
+    document.getElementById(
+        "departmentBanner"
+    ).textContent =
+        currentNurse.department || "Not Assigned";
+
+
+    document.getElementById(
+        "avatar"
+    ).textContent =
+        (
+            currentNurse.name ||
+            "N"
+        )
+        .charAt(0)
+        .toUpperCase();
+}
+
+
+/* =====================================================
+   SAVE PROFILE
+===================================================== */
+
+function saveProfile() {
+
+    const newName =
+        document.getElementById(
+            "nurseProfileName"
+        )
+        .value
+        .trim();
+
+
+    if (!newName) {
+
+        showMessage(
+            "profileMessage",
+            "Nurse name cannot be empty.",
+            "red"
+        );
+
+        return;
+    }
+
+
+    currentNurse.name =
+        newName;
+
+
+    localStorage.setItem(
+        "nurseSession",
+        JSON.stringify(currentNurse)
+    );
+
+
+    const currentUser =
+        localStorage.getItem("currentUser");
+
+
+    if (currentUser) {
+
+        try {
+
+            const user =
+                JSON.parse(currentUser);
+
+            user.name =
+                newName;
+
+            user.nurseName =
+                newName;
+
+            localStorage.setItem(
+                "currentUser",
+                JSON.stringify(user)
+            );
+
+        } catch(error) {}
+    }
+
+
+    loadProfile();
+
+
+    showMessage(
+        "profileMessage",
+        "Nurse profile updated successfully.",
+        "#15958d"
+    );
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(elementId, text, color) {
+
+    const element =
+        document.getElementById(elementId);
+
+    if (!element) return;
+
+
+    element.textContent =
+        text;
+
+    element.style.color =
+        color;
+
+
+    setTimeout(function() {
+
+        element.textContent = "";
+
+    }, 3000);
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value == null
+            ? ""
+            : String(value);
+
+    return div.innerHTML;
+}
+
+
+/* =====================================================
+   ESCAPE JAVASCRIPT STRING
+===================================================== */
+
+function escapeJS(value) {
+
+    return String(value)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r");
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    localStorage.removeItem("nurseSession");
+
+    localStorage.removeItem("currentUser");
+
+    localStorage.removeItem("loggedInUser");
+
+    localStorage.removeItem("role");
+
+    localStorage.removeItem("userRole");
+
+    localStorage.removeItem("nurseDepartment");
+
+
+    /*
+       IMPORTANT:
+       Goes to your main index page,
+       NOT login.html.
+    */
+
+    window.location.href =
+        "index.html";
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+function initializeNurse() {
+
+    currentNurse =
+        getNurseSession();
+
+
+    /*
+       Do NOT force nurseDepartment to exist.
+       The session can contain the department,
+       currentUser can contain it,
+       or the separate nurseDepartment key can contain it.
+    */
+
+    if (!currentNurse) {
+
+        alert(
+            "Nurse session not found. Please login again."
+        );
+
+        window.location.href =
+            "index.html";
+
+        return;
+    }
+
+
+    loadProfile();
+
+    updateDashboard();
+
+    renderQueue();
+
+    renderTasks();
+
+    renderRecords();
+}
+
+
+/* =====================================================
+   AUTO REFRESH
+===================================================== */
+
+setInterval(function() {
+
+    if (!currentNurse) {
+        return;
+    }
+
+
+    updateDashboard();
+
+
+    const queueSection =
+        document.getElementById(
+            "queueSection"
+        );
+
+    if (
+        queueSection &&
+        queueSection.style.display !== "none"
+    ) {
+
+        renderQueue();
+
+    }
+
+
+    const tasksSection =
+        document.getElementById(
+            "tasksSection"
+        );
+
+    if (
+        tasksSection &&
+        tasksSection.style.display !== "none"
+    ) {
+
+        renderTasks();
+
+    }
+
+
+    const recordsSection =
+        document.getElementById(
+            "recordsSection"
+        );
+
+    if (
+        recordsSection &&
+        recordsSection.style.display !== "none"
+    ) {
+
+        renderRecords();
+
+    }
+
+}, 3000);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+initializeNurse();
+
+</script>
+
+</body>
+</html>

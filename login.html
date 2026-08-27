@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEVORA | Staff Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eaf7f6, #f5fbff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #173c59;
+        }
+
+        .login-container {
+            width: 420px;
+            max-width: 92%;
+            background: white;
+            border-radius: 22px;
+            padding: 42px;
+            box-shadow: 0 15px 45px rgba(20, 70, 90, 0.12);
+        }
+
+        .logo {
+            text-align: center;
+            color: #0b6e69;
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #78909c;
+            font-size: 13px;
+            margin-bottom: 35px;
+        }
+
+        .login-title {
+            font-size: 25px;
+            color: #173c59;
+            margin-bottom: 8px;
+        }
+
+        .login-description {
+            color: #78909c;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #526b78;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d9e3e7;
+            border-radius: 10px;
+            background: #fafcfd;
+            outline: none;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #15958d;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(21, 149, 141, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #0b6e69, #15958d);
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(21, 149, 141, 0.25);
+        }
+
+        .message {
+            text-align: center;
+            min-height: 20px;
+            margin-top: 16px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: #0b6e69;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        .info-box {
+            margin-top: 25px;
+            padding: 13px;
+            background: #f0f8f7;
+            border-radius: 10px;
+            color: #55706e;
+            font-size: 11px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 500px) {
+            .login-container {
+                padding: 30px 25px;
+            }
+
+            .logo {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="logo">AEVORA</div>
+
+    <div class="subtitle">
+        SMART CLINIC MANAGEMENT SYSTEM
+    </div>
+
+    <h1 class="login-title">
+        Staff Login
+    </h1>
+
+    <p class="login-description">
+        Sign in to access your AEVORA staff portal.
+    </p>
+
+    <form id="loginForm">
+
+        <div class="form-group">
+            <label for="username">
+                USERNAME
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter username"
+                autocomplete="username"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="password">
+                PASSWORD
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required
+            >
+        </div>
+
+        <button
+            type="submit"
+            class="login-btn"
+        >
+            Login
+        </button>
+
+        <div
+            class="message"
+            id="message"
+        ></div>
+
+    </form>
+
+    <div class="info-box">
+        Authorized AEVORA staff only.<br>
+        Your role and department are automatically assigned after login.
+    </div>
+
+    <a
+        href="index.html"
+        class="back-btn"
+    >
+        ← Back to Home
+    </a>
+
+</div>
+
+
+<script>
+
+    /*
+    =====================================================
+    AEVORA STAFF ACCOUNTS
+    =====================================================
+    */
+
+    const staffAccounts = [
+
+        /*
+        =========================
+        DOCTORS
+        =========================
+        */
+
+        {
+            username: "nkj123",
+            password: "nkj@123",
+            role: "doctor",
+            department: "Cardiology",
+            name: "Cardiology Doctor"
+        },
+
+        {
+            username: "ps123",
+            password: "ps@123",
+            role: "doctor",
+            department: "Gynecology",
+            name: "Gynecology Doctor"
+        },
+
+        {
+            username: "gen123",
+            password: "gen@123",
+            role: "doctor",
+            department: "General Medicine",
+            name: "General Medicine Doctor"
+        },
+
+        {
+            username: "derm123",
+            password: "derm@123",
+            role: "doctor",
+            department: "Dermatology",
+            name: "Dermatology Doctor"
+        },
+
+        {
+            username: "neuro123",
+            password: "neuro@123",
+            role: "doctor",
+            department: "Neurology",
+            name: "Neurology Doctor"
+        },
+
+        {
+            username: "ortho123",
+            password: "ortho@123",
+            role: "doctor",
+            department: "Orthopedics",
+            name: "Orthopedics Doctor"
+        },
+
+        {
+            username: "pedi123",
+            password: "pedi@123",
+            role: "doctor",
+            department: "Pediatrics",
+            name: "Pediatrics Doctor"
+        },
+
+        {
+            username: "ent123",
+            password: "ent@123",
+            role: "doctor",
+            department: "ENT",
+            name: "ENT Doctor"
+        },
+
+        {
+            username: "oph123",
+            password: "oph@123",
+            role: "doctor",
+            department: "Ophthalmology",
+            name: "Ophthalmology Doctor"
+        },
+
+        {
+            username: "dent123",
+            password: "dent@123",
+            role: "doctor",
+            department: "Dentistry",
+            name: "Dentistry Doctor"
+        },
+
+
+        /*
+        =========================
+        NURSE
+        =========================
+        */
+
+        {
+            username: "ars123",
+            password: "ars@123",
+            role: "nurse",
+            department: "",
+            name: "AEVORA Nurse"
+        },
+
+
+        /*
+        =========================
+        RECEPTIONIST
+        =========================
+        */
+
+        {
+            username: "ak123",
+            password: "ak@123",
+            role: "receptionist",
+            department: "",
+            name: "AEVORA Receptionist"
+        }
+
+    ];
+
+
+    /*
+    =====================================================
+    LOGIN
+    =====================================================
+    */
+
+    document
+        .getElementById("loginForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const username =
+                document
+                .getElementById("username")
+                .value
+                .trim();
+
+            const password =
+                document
+                .getElementById("password")
+                .value;
+
+            const message =
+                document.getElementById("message");
+
+
+            /*
+            FIND ACCOUNT
+            */
+
+            const account =
+                staffAccounts.find(function(user) {
+
+                    return (
+                        user.username === username &&
+                        user.password === password
+                    );
+
+                });
+
+
+            /*
+            INVALID LOGIN
+            */
+
+            if (!account) {
+
+                message.style.color = "#d9534f";
+
+                message.textContent =
+                    "Invalid username or password.";
+
+                return;
+            }
+
+
+            /*
+            =================================================
+            CLEAR OLD SESSION DATA
+            =================================================
+
+            This is VERY important.
+
+            It prevents an old doctor's department
+            from being reused for a new login.
+
+            Example:
+
+            Old login:
+            dermatology
+
+            New login:
+            cardiology
+
+            The old department gets completely removed.
+            */
+
+            localStorage.removeItem("loggedInUser");
+            localStorage.removeItem("userRole");
+            localStorage.removeItem("role");
+            localStorage.removeItem("doctorDepartment");
+            localStorage.removeItem("department");
+            localStorage.removeItem("currentUser");
+            localStorage.removeItem("doctorName");
+
+
+            /*
+            =================================================
+            SAVE NEW SESSION
+            =================================================
+            */
+
+            localStorage.setItem(
+                "loggedInUser",
+                account.username
+            );
+
+            localStorage.setItem(
+                "userRole",
+                account.role
+            );
+
+            localStorage.setItem(
+                "role",
+                account.role
+            );
+
+
+            /*
+            =================================================
+            SAVE FULL USER OBJECT
+            =================================================
+
+            Doctor's department is stored here.
+
+            This is what doctor.html can read.
+            */
+
+            const currentUser = {
+
+                username: account.username,
+
+                role: account.role,
+
+                department: account.department,
+
+                name: account.name
+
+            };
+
+
+            localStorage.setItem(
+                "currentUser",
+                JSON.stringify(currentUser)
+            );
+
+
+            /*
+            =================================================
+            DOCTOR-SPECIFIC SESSION
+            =================================================
+            */
+
+            if (account.role === "doctor") {
+
+                localStorage.setItem(
+                    "doctorDepartment",
+                    account.department
+                );
+
+                localStorage.setItem(
+                    "department",
+                    account.department
+                );
+
+                localStorage.setItem(
+                    "doctorName",
+                    account.name
+                );
+
+            }
+
+
+            /*
+            =================================================
+            SUCCESS MESSAGE
+            =================================================
+            */
+
+            message.style.color = "#15958d";
+
+            message.textContent =
+                "Login successful! Redirecting...";
+
+
+            /*
+            =================================================
+            REDIRECT BY ROLE
+            =================================================
+            */
+
+            setTimeout(function() {
+
+                if (account.role === "doctor") {
+
+                    window.location.href =
+                        "doctor.html";
+
+                }
+
+                else if (account.role === "nurse") {
+
+                    window.location.href =
+                        "nurse.html";
+
+                }
+
+                else if (account.role === "receptionist") {
+
+                    window.location.href =
+                        "receptionist.html";
+
+                }
+
+                else {
+
+                    window.location.href =
+                        "index.html";
+
+                }
+
+            }, 500);
+
+        });
+
+</script>
+
+</body>
+</html>

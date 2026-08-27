@@ -1,0 +1,1384 @@
+/* ================================
+   GENERAL STYLING
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f8fc;
+    color: #1f2937;
+}
+
+
+/* ================================
+   NAVIGATION BAR
+================================ */
+
+.navbar {
+    height: 70px;
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1769aa;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #374151;
+    font-size: 15px;
+}
+
+.nav-links a:hover {
+    color: #1769aa;
+}
+
+
+/* ================================
+   HERO SECTION
+================================ */
+
+.hero {
+    min-height: 500px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 70px 10%;
+
+    background: linear-gradient(
+        135deg,
+        #eaf6ff,
+        #f8fbff
+    );
+}
+
+.hero-content {
+    max-width: 700px;
+}
+
+.small-heading {
+    color: #1769aa;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: 58px;
+    line-height: 1.1;
+
+    margin-bottom: 25px;
+
+    color: #12344d;
+}
+
+.description {
+    font-size: 18px;
+    line-height: 1.7;
+
+    color: #64748b;
+
+    max-width: 600px;
+
+    margin-bottom: 35px;
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.primary-button,
+.secondary-button {
+    padding: 14px 25px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.primary-button {
+    background-color: #1769aa;
+    color: white;
+}
+
+.primary-button:hover {
+    background-color: #12558b;
+}
+
+.secondary-button {
+    background-color: white;
+    color: #1769aa;
+
+    border: 2px solid #1769aa;
+}
+
+.secondary-button:hover {
+    background-color: #eaf6ff;
+}
+
+
+/* ================================
+   STATISTICS
+================================ */
+
+.stats {
+    display: flex;
+    justify-content: center;
+
+    gap: 30px;
+
+    padding: 50px 8%;
+
+    background-color: white;
+}
+
+.stat-card {
+    width: 250px;
+
+    text-align: center;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    background-color: #f8fafc;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h2 {
+    font-size: 32px;
+    color: #1769aa;
+
+    margin-bottom: 8px;
+}
+
+.stat-card p {
+    color: #64748b;
+}
+
+
+/* ================================
+   FEATURES
+================================ */
+
+.features {
+    padding: 70px 8%;
+
+    text-align: center;
+}
+
+.features > h2 {
+    font-size: 32px;
+
+    margin-bottom: 40px;
+
+    color: #12344d;
+}
+
+.feature-container {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 30px;
+}
+
+.feature-card {
+    width: 300px;
+
+    background-color: white;
+
+    padding: 35px 25px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+    font-size: 40px;
+
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    margin-bottom: 12px;
+
+    color: #12344d;
+}
+
+.feature-card p {
+    color: #64748b;
+
+    line-height: 1.6;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    text-align: center;
+
+    padding: 25px;
+
+    background-color: #12344d;
+
+    color: white;
+
+    margin-top: 30px;
+}
+/* ================================
+   QUEUE DASHBOARD
+================================ */
+
+.queue-page {
+    min-height: calc(100vh - 70px);
+
+    padding: 60px 8%;
+
+    background-color: #f5f8fc;
+}
+
+.queue-heading {
+    margin-bottom: 35px;
+}
+
+.queue-heading h1 {
+    font-size: 40px;
+
+    color: #12344d;
+
+    margin-bottom: 10px;
+}
+
+.queue-heading > p:last-child {
+    color: #64748b;
+}
+
+
+/* QUEUE STATISTICS */
+
+.queue-stats {
+    display: flex;
+
+    gap: 25px;
+
+    margin-bottom: 40px;
+}
+
+.queue-stat-card {
+    flex: 1;
+
+    background-color: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.stat-label {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 10px;
+}
+
+.queue-stat-card strong {
+    font-size: 30px;
+
+    color: #1769aa;
+}
+
+/* QUEUE TABLE */
+
+.queue-table-container {
+    background-color: white;
+
+    border-radius: 12px;
+
+    padding: 30px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.table-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.table-header h2 {
+    color: #12344d;
+}
+
+.live-indicator {
+    color: #16a34a;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+/* TABLE */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+
+    padding: 15px;
+
+    background-color: #f8fafc;
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+td {
+    padding: 16px 15px;
+
+    border-bottom: 1px solid #eef2f7;
+
+    color: #374151;
+}
+
+.empty-message {
+    text-align: center;
+
+    padding: 40px;
+
+    color: #94a3b8;
+}
+
+
+/* STATUS BADGES */
+
+.status-badge {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.status-waiting {
+    background-color: #eaf6ff;
+
+    color: #1769aa;
+}
+
+.status-serving {
+    background-color: #fff7ed;
+
+    color: #c2410c;
+}
+
+.status-completed {
+    background-color: #dcfce7;
+
+    color: #15803d;
+}
+
+
+/* PRIORITY BADGES */
+
+.priority-normal {
+    color: #64748b;
+}
+
+.priority-emergency {
+    color: #dc2626;
+
+    font-weight: bold;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .queue-page {
+        padding: 40px 20px;
+    }
+
+    .queue-stats {
+        flex-direction: column;
+    }
+
+    .queue-table-container {
+        padding: 20px 10px;
+    }
+
+}
+/* ================================
+   REGISTRATION SUCCESS
+================================ */
+
+.success-message {
+    text-align: center;
+}
+
+.success-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: #dcfce7;
+
+    color: #15803d;
+
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.success-message h1 {
+    color: #12344d;
+
+    font-size: 34px;
+
+    margin-bottom: 10px;
+}
+
+.success-message > p {
+    color: #64748b;
+
+    margin-bottom: 25px;
+}
+
+.queue-number-box {
+    background-color: #eaf6ff;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    margin: 25px 0;
+}
+
+.queue-number-box span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+.queue-number-box strong {
+    display: block;
+
+    color: #1769aa;
+
+    font-size: 42px;
+}
+
+.patient-summary {
+    text-align: left;
+
+    background-color: #f8fafc;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    margin-bottom: 25px;
+}
+
+.patient-summary p {
+    margin-bottom: 8px;
+
+    color: #475569;
+}
+
+.patient-summary p:last-child {
+    margin-bottom: 0;
+}
+
+.success-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+}
+/* =================================
+   DOCTOR DASHBOARD
+================================= */
+
+.admin-page {
+    min-height: calc(100vh - 70px);
+    padding: 60px 8%;
+    background-color: #f5f8fc;
+}
+
+.admin-heading {
+    margin-bottom: 35px;
+}
+
+.admin-heading h1 {
+    font-size: 40px;
+    color: #12344d;
+    margin-bottom: 10px;
+}
+
+.admin-heading > p:last-child {
+    color: #64748b;
+}
+
+
+/* CURRENT PATIENT CARD */
+
+.current-patient-card {
+    background-color: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+    margin-bottom: 40px;
+}
+
+.current-patient-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid #eef2f7;
+
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+}
+
+.current-patient-header h2 {
+    font-size: 42px;
+    color: #1769aa;
+    margin-top: 8px;
+}
+
+
+/* PATIENT INFORMATION */
+
+.doctor-patient-info {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+}
+
+.doctor-patient-info div {
+    background-color: #f8fafc;
+
+    padding: 18px;
+
+    border-radius: 10px;
+}
+
+.doctor-patient-info span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    margin-bottom: 8px;
+}
+
+.doctor-patient-info strong {
+    color: #12344d;
+
+    font-size: 16px;
+}
+
+
+/* DOCTOR BUTTONS */
+
+.doctor-buttons {
+    display: flex;
+
+    gap: 15px;
+}
+
+.doctor-buttons button {
+    padding: 14px 25px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.doctor-primary-button {
+    background-color: #1769aa;
+
+    color: white;
+
+    flex: 1;
+}
+
+.doctor-primary-button:hover {
+    background-color: #12558b;
+}
+
+.doctor-secondary-button {
+    background-color: #dcfce7;
+
+    color: #15803d;
+
+    flex: 1;
+}
+
+.doctor-secondary-button:hover {
+    background-color: #bbf7d0;
+}
+
+.doctor-buttons button:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+/* UPCOMING PATIENTS */
+
+.upcoming-section {
+    background-color: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+}
+
+.upcoming-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.upcoming-header h2 {
+    color: #12344d;
+}
+
+.upcoming-header span {
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+.upcoming-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.empty-message {
+    text-align: center;
+
+    padding: 30px;
+
+    color: #94a3b8;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .admin-page {
+        padding: 40px 20px;
+    }
+
+    .doctor-patient-info {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .doctor-buttons {
+        flex-direction: column;
+    }
+
+    .current-patient-header {
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+}
+/* ==========================================
+   PATIENT REGISTRATION PAGE
+========================================== */
+
+.registration-section {
+    min-height: calc(100vh - 140px);
+    padding: 60px 20px;
+    background-color: #f5f8fc;
+}
+
+.registration-container {
+    max-width: 750px;
+    margin: 0 auto;
+
+    background-color: white;
+
+    padding: 45px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+}
+
+.registration-heading {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.registration-heading h1 {
+    font-size: 38px;
+
+    color: #12344d;
+
+    margin: 10px 0;
+}
+
+.registration-heading p:last-child {
+    color: #64748b;
+
+    font-size: 16px;
+}
+
+
+/* FORM */
+
+#patientForm {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+
+    color: #12344d;
+
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d6dee8;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-family: inherit;
+
+    background-color: white;
+
+    color: #12344d;
+
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1769aa;
+
+    box-shadow: 0 0 0 3px rgba(23, 105, 170, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+
+    min-height: 110px;
+}
+
+
+/* AGE + GENDER */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+
+/* JOIN QUEUE BUTTON */
+
+.submit-button {
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 5px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background-color: #1769aa;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #12558b;
+
+    transform: translateY(-1px);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .registration-container {
+        padding: 30px 20px;
+    }
+
+    .registration-heading h1 {
+        font-size: 30px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* ==========================================
+   AEVORA - PATIENT RECORDS PAGE
+   ========================================== */
+
+.patient-record-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 70px 30px 90px;
+}
+
+
+/* ==========================================
+   PAGE HEADING
+   ========================================== */
+
+.patient-record-heading {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.patient-record-heading .small-heading {
+    margin-bottom: 12px;
+}
+
+.patient-record-heading h1 {
+    font-size: 48px;
+    margin: 0 0 12px;
+}
+
+.patient-record-heading p:last-child {
+    color: #64748b;
+    font-size: 17px;
+}
+
+
+/* ==========================================
+   SEARCH CARD
+   ========================================== */
+
+.patient-search-card {
+    max-width: 750px;
+    margin: 0 auto 35px;
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    border: 1px solid #e2e8f0;
+}
+
+.patient-search-card label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1e293b;
+}
+
+.patient-search-row {
+    display: flex;
+    gap: 12px;
+}
+
+.patient-search-row input {
+    flex: 1;
+    padding: 14px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.patient-search-row input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.patient-search-row button {
+    border: none;
+    border-radius: 10px;
+    padding: 0 25px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+/* ==========================================
+   SEARCH MESSAGE
+   ========================================== */
+
+#searchMessage {
+    margin: 15px 0 0;
+    font-weight: 600;
+    color: #15803d;
+}
+
+
+/* ==========================================
+   PATIENT RECORD CARD
+   ========================================== */
+
+.patient-record-card {
+    max-width: 950px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 15px 40px rgba(15, 23, 42, 0.09);
+    border: 1px solid #e2e8f0;
+}
+
+
+/* ==========================================
+   RECORD HEADER
+   ========================================== */
+
+.record-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 25px;
+}
+
+.record-header h2 {
+    margin: 5px 0 0;
+    font-size: 30px;
+}
+
+.record-header > strong {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+
+/* ==========================================
+   PATIENT INFORMATION
+   ========================================== */
+
+.record-information {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.record-information > div {
+    background: #f8fafc;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.record-information span,
+.record-reason span {
+    display: block;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.record-information strong {
+    font-size: 16px;
+    color: #0f172a;
+}
+
+
+/* ==========================================
+   REASON
+   ========================================== */
+
+.record-reason {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 35px;
+}
+
+.record-reason p {
+    margin: 0;
+    color: #334155;
+    line-height: 1.6;
+}
+
+
+/* ==========================================
+   PRESCRIPTION HISTORY
+   ========================================== */
+
+.prescription-section {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 30px;
+}
+
+.prescription-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================
+   PRESCRIPTION CARD
+   ========================================== */
+
+.prescription-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.prescription-date {
+    font-weight: 700;
+    color: #1d4ed8;
+    margin-bottom: 15px;
+}
+
+.prescription-medicines {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.medicine-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 13px 15px;
+    border-radius: 9px;
+    border: 1px solid #e2e8f0;
+}
+
+.medicine-item strong {
+    color: #0f172a;
+}
+
+.medicine-item span {
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   EMPTY MESSAGE
+   ========================================== */
+
+.patient-record-card .empty-message {
+    color: #64748b;
+    text-align: center;
+    padding: 25px;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    .patient-record-page {
+        padding: 45px 18px 70px;
+    }
+
+    .patient-record-heading h1 {
+        font-size: 38px;
+    }
+
+    .patient-search-row {
+        flex-direction: column;
+    }
+
+    .patient-search-row button {
+        padding: 13px;
+    }
+
+    .record-information {
+        grid-template-columns: 1fr;
+    }
+
+    .record-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .medicine-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+}
+/* ==========================================
+   PRESCRIPTION FORM
+   ========================================== */
+
+.prescription-form {
+    margin-top: 30px;
+    padding: 28px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+}
+
+.prescription-form h2 {
+    margin: 0 0 8px;
+}
+
+.prescription-form > p {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.medicine-list {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.medicine-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+
+.medicine-item div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.medicine-item strong {
+    color: #0f172a;
+}
+
+.medicine-item span {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.medicine-item button {
+    border: none;
+    background: transparent;
+    color: #dc2626;
+    font-size: 18px;
+    cursor: pointer;
+}
+/* ==========================================
+   PRESCRIPTION BUTTONS
+   ========================================== */
+
+.prescription-form .doctor-primary-button,
+.prescription-form .doctor-secondary-button {
+    border: none;
+    border-radius: 10px;
+    padding: 13px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+
+
+/* Add Medicine */
+
+.prescription-form .doctor-primary-button {
+    background: #1769aa;
+    color: white;
+    box-shadow: 0 4px 10px rgba(23, 105, 170, 0.2);
+}
+
+.prescription-form .doctor-primary-button:hover {
+    background: #12578d;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(23, 105, 170, 0.25);
+}
+
+
+/* Save Prescription */
+
+.prescription-form .doctor-secondary-button {
+    background: #0f766e;
+    color: white;
+    margin-left: 10px;
+    box-shadow: 0 4px 10px rgba(15, 118, 110, 0.2);
+}
+
+.prescription-form .doctor-secondary-button:hover {
+    background: #0d625b;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(15, 118, 110, 0.25);
+}
+
+
+/* Click effect */
+
+.prescription-form .doctor-primary-button:active,
+.prescription-form .doctor-secondary-button:active {
+    transform: translateY(0);
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .prescription-form .doctor-primary-button,
+    .prescription-form .doctor-secondary-button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+}
